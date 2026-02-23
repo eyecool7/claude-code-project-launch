@@ -1,0 +1,186 @@
+---
+name: project-setup
+description: |
+  프로젝트에 맞는 Claude Code 설정(CLAUDE.md + .claude/)을 생성한다.
+  프로젝트 구조, 의존성, 프로젝트 계획서를 분석하여 settings, hooks, commands를 구성한다.
+  트리거: "setup", "init", "세팅", "프로젝트 시작", "새 프로젝트 설정", "configure project".
+  사용 금지: 기존 세팅 수정(/refresh), 코드 리뷰(/review), 계획서 작성(별도 프롬프트).
+---
+
+# 프로젝트 초기 세팅 스킬
+
+프로젝트를 분석하고 Claude Code 설정 파일을 생성한다.
+
+**전제 조건:** 프로젝트 계획서가 이미 존재해야 한다 (파일 또는 대화 컨텍스트).
+이 스킬은 계획서를 만들지 않는다 — 소비할 뿐이다.
+계획서 작성은 별도 프롬프트(`references/project-plan.md`)를 사용하여 LLM과 대화로 완성한다.
+
+## 세션 전략 (2-Session 워크플로우)
+
+1. **세션 1 — 기획:** 프롬프트로 인터뷰 → 프로젝트 계획서 작성 → 파일 저장 → 세션 종료
+2. **세션 2 — 구현:** 새 세션 시작 → "project-plan.md 읽고 세팅해줘" → 이 스킬 실행
+
+기획 대화의 수정 히스토리가 구현 컨텍스트를 오염시키므로 반드시 분리.
+
+## 사용 케이스
+
+1. 계획서가 준비된 신규 프로젝트 → 분석 → CLAUDE.md + .claude/ 생성
+2. Claude Code 설정이 필요한 기존 프로젝트 → 코드베이스 분석 → 설정 생성
+3. 특수 의존성(Remotion, Prisma+Edge 등)이 있는 프로젝트 → 충돌 감지 → 경고 포함 설정 생성
+
+## 워크플로우
+
+### Step 1: 프로젝트 분석 실행
+
+```bash
+bash scripts/analyze-project.sh
+```
+
+스크립트가 자동 감지하는 항목:
+- `HAS_FRONTEND` / `HAS_BACKEND` (프레임워크 감지)
+- `PKG_MANAGER` (락파일 감지)
+- `HAS_FORMATTER` + 종류 (prettier/biome/eslint)
+- `HAS_AUTH` (인증 라이브러리 감지)
+- `EXTERNAL_API_COUNT` (외부 의존성 수)
+- `CONFLICT_WARNINGS` (알려진 호환성 문제 패턴)
+
+스크립트 출력을 확인한 후 진행. 잘못된 감지가 있으면 수동 수정.
+
+### Step 2: CLAUDE.md 생성
+
+`references/claude-md-template.md`를 기반으로 변수를 채운다:
+- **계획서** → 프로젝트명, 역할, 철학, 핵심 플로우
+- **Step 1 출력** → 스택 상세, 핵심 경로, 개발 명령어, 권한
+- **의존성 분석** → 충돌 경고, 주의사항
+
+CLAUDE.md 생성 핵심 규칙:
+- Claude가 이미 아는 정보는 넣지 않는다
+- 주요 의존성의 실제 import 경로와 설정 코드를 포함한다 ("X 사용" 수준이 아니라)
+- 의존성 충돌 감지 시 핵심 규칙 섹션에 ⚠️ 경고 추가
+- **검증 섹션을 핵심 규칙 바로 다음에 배치** — 가장 중요한 3줄
+- 목표: 50~60줄. 80줄 절대 초과 금지.
+- 상세 규칙은 `.claude/skills/`에 별도 SKILL.md로 분리 (Claude가 자동 발견)
+
+### Step 3: .claude/ 설정 생성
+
+스킬의 `.claude/` 템플릿에서 복사 후 프로젝트에 맞게 커스터마이징:
+
+**항상 생성 (기본 18파일):**
+
+| 파일 | 커스터마이징 |
+|------|------------|
+| `settings.json` | PKG_MANAGER 기반 권한, pre-commit hook 명령어 |
+| `commands/review.md` | 그대로 복사 |
+| `commands/check.md` | {{PKG_MANAGER}} 치환 |
+| `commands/commit-push-pr.md` | 그대로 복사 |
+| `hooks/session-start.sh` | 그대로 복사 |
+| `hooks/edit-monitor.sh` | 그대로 복사 |
+| `hooks/pre-commit-check.sh` | {{TYPECHECK_CMD}}, {{LINT_CMD}}, {{TEST_CMD}} 치환 |
+| `skills/error-handling/SKILL.md` | 템플릿 복사 후 TODO를 계획서 에러 전략으로 채움. AppError 구조·에러 7종은 유지. |
+| `skills/security/SKILL.md` | 템플릿 복사 후 TODO를 계획서 보안/인증 요구사항으로 채움. |
+| `skills/testing/SKILL.md` | 템플릿 복사 후 프로젝트 테스트 도구·mock 대상으로 보강. 에러 7종 테스트는 유지. |
+| `skills/conventions/SKILL.md` | 그대로 복사. 프로젝트 추가 컨벤션 있으면 추가. |
+| `skills/project-directory/SKILL.md` | 템플릿 복사 후 TODO를 실제 프로젝트 디렉토리 구조로 채움. |
+| `skills/easy-refactoring/SKILL.md` | 그대로 복사. |
+| `skills/skill-discovery/SKILL.md` | 그대로 복사. |
+| `agents/test-runner.md` | {{TEST_CMD}} 치환 |
+| `agents/code-reviewer.md` | 그대로 복사 |
+| `agents/debugger.md` | 그대로 복사 |
+| `lessons.md` | 그대로 복사 (빈 템플릿) |
+
+**조건부 생성 (HAS_FRONTEND=true):**
+
+| 파일 | 커스터마이징 |
+|------|------------|
+| `skills/design-rules/SKILL.md` | 템플릿 복사 후 TODO를 프로젝트 팔레트·다크모드·컴포넌트 구조로 채움. AI 디자인 키워드는 프로젝트에 맞게 1개씩 선택. |
+
+**조건부 생성 (의존성 주의사항 있을 때):**
+
+| 파일 | 커스터마이징 |
+|------|------------|
+| `skills/dependencies/SKILL.md` | frontmatter 유지, 계획서 의존성 호환성 메모로 재작성. |
+
+### Step 4: 검증
+
+```bash
+bash scripts/validate-setup.sh
+```
+
+검증 항목:
+- CLAUDE.md 존재 여부 및 80줄 이하 확인
+- 치환되지 않은 `{{변수}}` 잔존 여부
+- 필수 `.claude/skills/` 디렉토리에 SKILL.md 존재 확인
+- Claude가 이미 아는 패턴 경고 (⚠️ 경고만, 에러 아님)
+- settings.json JSON 유효성
+- Hook 스크립트 실행 권한
+
+검증 실패 시 → 문제 수정 → 검증 재실행.
+
+### Step 5: 완료 요약
+
+```
+✅ 프로젝트 세팅 완료
+
+📁 생성: CLAUDE.md ({{LINE_COUNT}}줄) + .claude/ ({{FILE_COUNT}}개 파일)
+⚙️ 모드: {{SOLO/TEAM}}
+{{#IF_CONFLICTS}}⚠️ 호환성 주의: {{CONFLICT_SUMMARY}}{{/IF_CONFLICTS}}
+
+💡 다음 단계:
+  1. CLAUDE.md 검토 — 55줄 이하인지 확인
+  2. .env 환경 변수 설정
+  3. /check로 상태 확인
+  4. 새 세션에서 구현 시작 (클린 컨텍스트)
+```
+
+## 예시
+
+### 예시 1: Next.js + Prisma 풀스택
+
+사용자: "이 프로젝트 세팅해줘" (계획서 이미 존재)
+
+1. `analyze-project.sh` → Next.js 14, Prisma, bun, prettier, has-auth, 외부 API 2개
+2. CLAUDE.md 생성: 58줄
+3. .claude/ 생성: 12개 파일
+4. `validate-setup.sh` → ✅ 전체 통과
+
+결과: CLAUDE.md(58줄) + .claude/(12개 파일)
+
+### 예시 2: Express API 전용
+
+사용자: "세팅"
+
+1. `analyze-project.sh` → Express, MongoDB/Mongoose, npm, 프론트엔드 없음, 인증 없음
+2. CLAUDE.md 생성: 48줄. design-rules 생략.
+3. .claude/ 생성: 10개 파일
+4. `validate-setup.sh` → ✅
+
+결과: CLAUDE.md(48줄) + .claude/(10개 파일)
+
+### 예시 3: Next.js + Remotion (충돌 감지)
+
+1. `analyze-project.sh` → Remotion + Next.js 감지 → 충돌: serverExternalPackages 필요
+2. CLAUDE.md에 포함: "⚠️ Remotion은 next.config.ts에 serverExternalPackages 설정 필수"
+3. .claude/skills/dependencies/SKILL.md에 필수 설정 코드 포함
+
+## 문제 해결
+
+### CLAUDE.md가 80줄을 초과할 때
+원인: 규칙이 너무 많이 인라인됨.
+해결: 상세 규칙을 .claude/skills/의 별도 SKILL.md로 이동.
+판단 기준: "이 줄을 지우면 Claude가 실수하는가?" 아니면 → 삭제 또는 이동.
+
+### validate-setup.sh에서 "Claude가 이미 아는 내용" 경고가 뜰 때
+원인: Claude가 기본적으로 따르는 범용 모범 사례가 포함됨.
+해결: 해당 줄 삭제. 프로젝트 특화 주의사항만 남긴다.
+
+### analyze-project.sh가 프레임워크를 잘못 감지할 때
+원인: 비표준 프로젝트 구조 또는 모노레포.
+해결: 사용자가 변수를 직접 수정. 스크립트 출력은 제안이지 강제가 아님.
+
+### 의존성 충돌이 감지되지 않을 때
+원인: analyze-project.sh에 해당 패턴이 없음.
+해결: 스크립트에 새 패턴 추가. 알려진 충돌은 유한하고 열거 가능함.
+
+### validate-setup.sh에서 치환되지 않은 변수가 보고될 때
+원인: 계획서에 필요한 정보가 누락됨.
+해결: 계획서의 빈 부분을 채운 후 CLAUDE.md 재생성.
