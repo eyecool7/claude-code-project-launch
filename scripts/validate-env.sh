@@ -29,17 +29,20 @@ else
 
   # --- 2. 숨겨진 문자 감지 (줄바꿈, 탭, 캐리지 리턴) ---
   # Vercel 등에서 복사 시 \r\n이 섞이는 문제 감지
-  if grep -P '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]' "$ENV_FOUND" >/dev/null 2>&1; then
+  # macOS BSD grep은 -P 미지원이므로 perl 사용
+  if perl -ne 'exit 1 if /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/' "$ENV_FOUND" 2>/dev/null; then
+    echo "✅ 숨겨진 문자 없음"
+  elif [ $? -eq 1 ]; then
     echo "❌ 숨겨진 제어 문자 발견:"
-    grep -nP '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]' "$ENV_FOUND" | head -5
+    perl -nle 'print "$.: $_" if /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/' "$ENV_FOUND" | head -5
     echo "   → 해결: 해당 줄을 직접 타이핑으로 재입력"
     ERRORS=$((ERRORS + 1))
-  elif grep -P '\r' "$ENV_FOUND" >/dev/null 2>&1; then
+  fi
+  # Windows 줄바꿈 감지
+  if perl -ne 'exit 1 if /\r/' "$ENV_FOUND" 2>/dev/null; [ $? -eq 1 ]; then
     echo "⚠️ Windows 줄바꿈(\\r) 발견. Unix 형식으로 변환 권장:"
     echo "   → sed -i '' 's/\\r\$//' $ENV_FOUND"
     WARNINGS=$((WARNINGS + 1))
-  else
-    echo "✅ 숨겨진 문자 없음"
   fi
 
   # --- 3. 값에 감싸진 따옴표 감지 ---
@@ -88,29 +91,35 @@ if [ -f "$PKG" ] && [ -n "$ENV_FOUND" ]; then
   echo ""
   echo "=== SDK ↔ 환경 변수 교차 확인 ==="
 
-  # 주요 SDK → 기대 환경 변수 매핑
-  declare -A SDK_ENV_MAP
-  SDK_ENV_MAP["openai"]="OPENAI_API_KEY"
-  SDK_ENV_MAP["@anthropic-ai/sdk"]="ANTHROPIC_API_KEY"
-  SDK_ENV_MAP["@google/generative-ai"]="GEMINI_API_KEY|GOOGLE_API_KEY"
-  SDK_ENV_MAP["resend"]="RESEND_API_KEY"
-  SDK_ENV_MAP["@sendgrid"]="SENDGRID_API_KEY"
-  SDK_ENV_MAP["stripe"]="STRIPE_SECRET_KEY|STRIPE_PUBLISHABLE_KEY"
-  SDK_ENV_MAP["firebase"]="FIREBASE_API_KEY|FIREBASE_PROJECT_ID"
-  SDK_ENV_MAP["@supabase/supabase-js"]="SUPABASE_URL|SUPABASE_ANON_KEY"
-  SDK_ENV_MAP["@prisma/client"]="DATABASE_URL"
-  SDK_ENV_MAP["@aws-sdk"]="AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"
+  # 주요 SDK → 기대 환경 변수 매핑 (bash 3.2 호환)
+  SDK_NAMES="openai @anthropic-ai/sdk @google/generative-ai resend @sendgrid stripe firebase @supabase/supabase-js @prisma/client @aws-sdk"
 
-  for SDK in "${!SDK_ENV_MAP[@]}"; do
+  get_expected_keys() {
+    case "$1" in
+      openai) echo "OPENAI_API_KEY" ;;
+      @anthropic-ai/sdk) echo "ANTHROPIC_API_KEY" ;;
+      @google/generative-ai) echo "GEMINI_API_KEY|GOOGLE_API_KEY" ;;
+      resend) echo "RESEND_API_KEY" ;;
+      @sendgrid) echo "SENDGRID_API_KEY" ;;
+      stripe) echo "STRIPE_SECRET_KEY|STRIPE_PUBLISHABLE_KEY" ;;
+      firebase) echo "FIREBASE_API_KEY|FIREBASE_PROJECT_ID" ;;
+      @supabase/supabase-js) echo "SUPABASE_URL|SUPABASE_ANON_KEY" ;;
+      @prisma/client) echo "DATABASE_URL" ;;
+      @aws-sdk) echo "AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY" ;;
+    esac
+  }
+
+  for SDK in $SDK_NAMES; do
     if grep -q "\"$SDK\"" "$PKG" 2>/dev/null; then
-      EXPECTED_KEYS="${SDK_ENV_MAP[$SDK]}"
-      IFS='|' read -ra KEY_ARRAY <<< "$EXPECTED_KEYS"
+      EXPECTED_KEYS=$(get_expected_keys "$SDK")
       FOUND_ANY=false
-      for KEY in "${KEY_ARRAY[@]}"; do
+      OLD_IFS="$IFS"; IFS='|'
+      for KEY in $EXPECTED_KEYS; do
         if grep -qE "^${KEY}=" "$ENV_FOUND" 2>/dev/null; then
           FOUND_ANY=true
         fi
       done
+      IFS="$OLD_IFS"
       if [ "$FOUND_ANY" = false ]; then
         echo "⚠️ ${SDK} 설치됨 → ${EXPECTED_KEYS} 중 하나가 .env에 없음"
         WARNINGS=$((WARNINGS + 1))

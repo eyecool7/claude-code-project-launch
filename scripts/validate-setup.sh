@@ -125,7 +125,6 @@ for FILE in "${REQUIRED_FILES[@]}"; do
   fi
 done
 
-FOUND=$((${#REQUIRED_FILES[@]} - ERRORS + 1))  # rough count
 echo "✅ Required files: checked ${#REQUIRED_FILES[@]} paths"
 
 # --- 6. Hook 실행 권한 ---

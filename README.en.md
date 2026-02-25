@@ -27,9 +27,10 @@ Save the file as **project-plan.md** and place it in your project root.
 |---------|----------|----------|
 | 1. Product Context | One-liner, background, core features + priorities, success criteria, out of scope | ✅ Required |
 | 2. Workflow | User flows, LLM vs script separation, validation + failure handling | ✅ Required |
-| 3. Implementation Design | Tech stack, agent structure, skill list, error strategy, dependencies | ✅ Required |
-| 4. Technical Decisions | UI tools, data flow, URL structure, external services | ⚪ Optional |
-| 5. Implementation Order | Phase-by-phase dependency roadmap | ✅ Required |
+| 3. Tool & Workflow Design | MCP server selection, skill selection, .mcp.json finalization | ✅ Required |
+| 4. Implementation Design | Tech stack, agent structure, skill list, error strategy, dependencies | ✅ Required |
+| 5. Technical Decisions | UI tools, data flow, URL structure, external services | ⚪ Optional |
+| 6. Implementation Order | Phase-by-phase dependency roadmap | ✅ Required |
 
 ---
 
