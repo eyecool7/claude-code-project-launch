@@ -1,45 +1,44 @@
 {
   "hooks": {
-    "SessionStart": [
-      {
-        "command": "bash .claude/hooks/session-start.sh",
-        "description": "컨텍스트 로드 + 설정 변경 감지"
-      }
-    ],
     "PreToolUse": [
       {
-        "matcher": "Bash(git commit:*)",
-        "command": "bash .claude/hooks/pre-commit-check.sh",
-        "description": "커밋 전 typecheck+lint+test 검증. 실패 시 커밋 차단."
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-commit-check.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "command": "bash .claude/hooks/edit-monitor.sh $FILE_PATH",
-        "description": "같은 파일 반복 수정 감지 → 재검토 제안 (hint)"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/edit-monitor.sh"
+          }
+        ]
       }
     ]
   },
   "permissions": {
     "allow": [
-      "build",
-      "test",
-      "lint",
-      "typecheck",
-      "format",
-      "find",
-      "grep",
-      "cat",
-      "ls"
-    ],
-    "ask": [
-      "git push",
-      "install"
+      "Bash(build:*)",
+      "Bash(test:*)",
+      "Bash(lint:*)",
+      "Bash(typecheck:*)",
+      "Bash(format:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)"
     ],
     "deny": [
-      "rm -rf",
-      ".env 수정"
+      "Bash(rm -rf:*)",
+      "Bash(*>.env:*)",
+      "Bash(*>>.env:*)"
     ]
   }
 }

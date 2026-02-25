@@ -89,6 +89,7 @@ my-project/
 │   └── setup-prompt.md          ← 셋업 프롬프트
 ├── scripts/
 │   ├── analyze-project.sh       ← 프로젝트 분석 자동화
+│   ├── validate-env.sh          ← 환경 변수 위생 검사
 │   └── validate-setup.sh        ← 세팅 결과 검증
 │
 │  ── .claude/ (템플릿 상태) ──────────────────────────

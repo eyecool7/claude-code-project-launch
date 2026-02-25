@@ -8,10 +8,11 @@
 SKILL.md에 정의된 워크플로우(Step 1→5)대로 진행해:
 
 1. scripts/analyze-project.sh 실행 → 프로젝트 분석
-2. references/claude-md-template.md 기반으로 CLAUDE.md 생성 (55줄 내외, 80줄 절대 초과 금지)
-3. .claude/skills/ 템플릿의 TODO를 project-plan.md 기반으로 채움
-4. .claude/hooks/, agents/, commands/의 {{변수}}를 실제 값으로 치환
-5. scripts/validate-setup.sh 실행 → 검증
+2. scripts/validate-env.sh 실행 → 환경 변수 위생 검사
+3. references/claude-md-template.md 기반으로 CLAUDE.md 생성 (55줄 내외, 80줄 절대 초과 금지)
+4. .claude/skills/ 템플릿의 TODO를 project-plan.md 기반으로 채움
+5. .claude/hooks/, agents/, commands/의 {{변수}}를 실제 값으로 치환
+6. scripts/validate-setup.sh 실행 → 검증
 
 검증 통과 후:
 - git init + 첫 커밋

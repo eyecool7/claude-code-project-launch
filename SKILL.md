@@ -34,6 +34,7 @@ description: |
 
 ```bash
 bash scripts/analyze-project.sh
+bash scripts/validate-env.sh
 ```
 
 스크립트가 자동 감지하는 항목:
@@ -43,6 +44,12 @@ bash scripts/analyze-project.sh
 - `HAS_AUTH` (인증 라이브러리 감지)
 - `EXTERNAL_API_COUNT` (외부 의존성 수)
 - `CONFLICT_WARNINGS` (알려진 호환성 문제 패턴)
+
+`validate-env.sh`가 추가 감지하는 항목:
+- `.env` 파일 내 숨겨진 제어 문자 (줄바꿈, 캐리지 리턴)
+- 따옴표로 감싸진 값 (Docker/Vercel 배포 시 문제 유발)
+- 빈 값, 중복 키
+- SDK ↔ 환경 변수 교차 확인 (SDK는 설치되어 있으나 키가 없는 경우)
 
 스크립트 출력을 확인한 후 진행. 잘못된 감지가 있으면 수동 수정.
 
@@ -104,6 +111,7 @@ CLAUDE.md 생성 핵심 규칙:
 
 ```bash
 bash scripts/validate-setup.sh
+bash scripts/validate-env.sh
 ```
 
 검증 항목:
