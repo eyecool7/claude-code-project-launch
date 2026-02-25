@@ -110,6 +110,13 @@ CLAUDE.md 생성 핵심 규칙:
 | 파일 | 커스터마이징 |
 |------|------------|
 | `skills/design-rules/SKILL.md` | 템플릿 복사 후 TODO를 프로젝트 팔레트·다크모드·컴포넌트 구조로 채움. AI 디자인 키워드는 프로젝트에 맞게 1개씩 선택. |
+| `skills/ui-ux-pro-max/` | 외부 스킬 설치. 아래 명령어 실행: |
+
+```bash
+git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git /tmp/ui-ux-pro-max-skill
+cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
+rm -rf /tmp/ui-ux-pro-max-skill
+```
 
 **조건부 생성 (의존성 주의사항 있을 때):**
 

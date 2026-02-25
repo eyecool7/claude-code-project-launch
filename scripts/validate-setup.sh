@@ -24,8 +24,9 @@ else
   fi
 
   # --- 3. 미치환 변수 체크 ---
-  UNREPLACED=$(grep -c '{{[A-Z_]*}}' "$ROOT/CLAUDE.md" 2>/dev/null || echo 0)
-  if [ "$UNREPLACED" -gt 0 ]; then
+  UNREPLACED=0
+  UNREPLACED=$(grep -c '{{[A-Z_]*}}' "$ROOT/CLAUDE.md" 2>/dev/null) || true
+  if [ "$UNREPLACED" -gt 0 ] 2>/dev/null; then
     echo "❌ CLAUDE.md has ${UNREPLACED} unreplaced {{VARIABLE}} placeholders:"
     grep -n '{{[A-Z_]*}}' "$ROOT/CLAUDE.md"
     ERRORS=$((ERRORS + 1))
@@ -37,8 +38,9 @@ else
   TODO_COUNT=0
   for CHECK_FILE in "$ROOT/CLAUDE.md" "$ROOT"/.claude/skills/*/SKILL.md "$ROOT"/.claude/agents/*.md "$ROOT"/.claude/hooks/*.sh "$ROOT"/.claude/commands/*.md; do
     if [ -f "$CHECK_FILE" ]; then
-      FOUND=$(grep -cinE '(TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' "$CHECK_FILE" 2>/dev/null || echo 0)
-      if [ "$FOUND" -gt 0 ]; then
+      FOUND=0
+      FOUND=$(grep -ciE '(TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' "$CHECK_FILE" 2>/dev/null) || true
+      if [ "$FOUND" -gt 0 ] 2>/dev/null; then
         echo "❌ TODO/Placeholder found in $(basename "$CHECK_FILE"):"
         grep -niE '(TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' "$CHECK_FILE" | head -3
         TODO_COUNT=$((TODO_COUNT + FOUND))
@@ -48,7 +50,7 @@ else
   if [ "$TODO_COUNT" -gt 0 ]; then
     ERRORS=$((ERRORS + 1))
   else
-    echo "✅ No TODO/Placeholder残留"
+    echo "✅ No TODO/Placeholder found"
   fi
 
   # --- 3b. Skills frontmatter 검증 ---
