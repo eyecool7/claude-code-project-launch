@@ -7,12 +7,11 @@
 
 SKILL.md에 정의된 워크플로우(Step 1→5)대로 진행해:
 
-1. scripts/analyze-project.sh 실행 → 프로젝트 분석
-2. scripts/validate-env.sh 실행 → 환경 변수 위생 검사
-3. references/claude-md-template.md 기반으로 CLAUDE.md 생성 (55줄 내외, 80줄 절대 초과 금지)
-4. .claude/skills/ 템플릿의 TODO를 project-plan.md 기반으로 채움
-5. .claude/hooks/, agents/, commands/의 {{변수}}를 실제 값으로 치환
-6. scripts/validate-setup.sh 실행 → 검증
+Step 1: scripts/analyze-project.sh + scripts/validate-env.sh 실행 → 프로젝트 분석
+Step 2: references/claude-md-template.md 기반으로 CLAUDE.md 생성 (55줄 내외, 80줄 절대 초과 금지)
+Step 3: .claude/skills/ 템플릿의 TODO를 project-plan.md 기반으로 채우고, hooks/agents/commands의 {{변수}}를 실제 값으로 치환
+Step 4: scripts/validate-setup.sh + scripts/validate-env.sh 실행 → 검증
+Step 5: 세팅 결과 요약 출력
 
 검증 통과 후:
 - git init + 첫 커밋
@@ -34,5 +33,5 @@ SKILL.md에 정의된 워크플로우(Step 1→5)대로 진행해:
 
 ## 전제 조건
 
-- Step 1(계획서 작성) + Step 2(계획서 고도화)가 완료되어 `project-plan.md`가 루트에 있어야 한다.
-- Step 3(스킬 설치)이 완료되어 `.claude/`, `references/`, `scripts/`가 루트에 있어야 한다.
+- 계획서 작성 + 고도화가 완료되어 `project-plan.md`가 루트에 있어야 한다.
+- 스킬 설치가 완료되어 `.claude/`, `references/`, `scripts/`가 루트에 있어야 한다.

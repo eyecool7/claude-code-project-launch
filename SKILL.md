@@ -134,7 +134,7 @@ bash scripts/validate-env.sh
 {{#IF_CONFLICTS}}⚠️ 호환성 주의: {{CONFLICT_SUMMARY}}{{/IF_CONFLICTS}}
 
 💡 다음 단계:
-  1. CLAUDE.md 검토 — 55줄 이하인지 확인
+  1. CLAUDE.md 검토 — 55줄 내외인지 확인 (80줄 절대 초과 금지)
   2. .env 환경 변수 설정
   3. /check로 상태 확인
   4. 새 세션에서 구현 시작 (클린 컨텍스트)
