@@ -1,5 +1,7 @@
 # claude-code-project-setup
 
+[English](README.en.md)
+
 Claude Code 프로젝트 세팅 자동화 스킬. 계획서 하나로 CLAUDE.md + skills + agents + hooks를 생성한다.
 
 ## 한눈에 보기
