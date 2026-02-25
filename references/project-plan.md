@@ -208,14 +208,34 @@ cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
 
 > 선호가 있으면 채운다. 없으면 비워두고, 세팅 스킬이 스택에 맞게 기본값 적용.
 
+#### 추천 서비스 스택 (기본값)
+
+아래는 검증된 조합이다. **사용자가 선호를 말하지 않으면 이 스택을 기본 추천한다.**
+사용자가 대안을 원하면 괄호 안의 대안 중 선택.
+
+| 카테고리 | 추천 (기본값) | 대안 | 비고 |
+|---------|:----------:|------|------|
+| **프레임워크** | Next.js | Nuxt, SvelteKit, Astro | App Router 기본 |
+| **백엔드/DB** | Supabase | Firebase, PlanetScale, Neon | Postgres + Auth + Storage 통합 |
+| **배포** | Vercel | Netlify, Cloudflare Pages, Railway | Next.js와 최적 호환 |
+| **인증** | Clerk | Supabase Auth, NextAuth, Lucia | 소셜 로그인 + 관리 대시보드 |
+| **결제** | Stripe | Toss Payments, Paddle, Lemon Squeezy | 글로벌: Stripe, 국내: Toss |
+| **이메일** | Resend | SendGrid, Postmark, Nodemailer | React Email 호환 |
+| **DNS/CDN** | Cloudflare | Route53, Namecheap | 무료 DNS + DDoS 방어 |
+| **분석** | PostHog | Google Analytics, Mixpanel, Plausible | 오픈소스, 셀프호스팅 가능 |
+| **에러 추적** | Sentry | LogRocket, Bugsnag | 프론트+백 에러 통합 |
+| **캐시/큐** | Upstash Redis | Redis Cloud, Momento | 서버리스 Redis |
+| **벡터 DB** | Pinecone | Weaviate, Qdrant, Supabase pgvector | RAG/검색용 |
+| **버전 관리** | GitHub | GitLab, Bitbucket | Claude Code 네이티브 연동 |
+
 #### UI 도구 + 폼 처리
-- 컴포넌트 라이브러리: (shadcn / Radix / MUI / 직접 구현 / 미정)
-- 폼 라이브러리: (react-hook-form / 서버 액션 / 미정)
-- 밸리데이션: (zod 스키마 공유 / joi / 미정)
+- 컴포넌트 라이브러리: (shadcn (추천) / Radix / MUI / 직접 구현 / 미정)
+- 폼 라이브러리: (react-hook-form (추천) / 서버 액션 / 미정)
+- 밸리데이션: (zod (추천) / joi / 미정)
 
 #### 데이터 흐름 패턴
-- 서버 상태: (React Query / SWR / 서버 컴포넌트 / 미정)
-- 전역 상태: (Zustand / Jotai / 불필요 / 미정)
+- 서버 상태: (React Query (추천) / SWR / 서버 컴포넌트 / 미정)
+- 전역 상태: (Zustand (추천) / Jotai / 불필요 / 미정)
 - 실시간: (WebSocket / polling / 불필요 / 미정)
 
 #### URL 구조
@@ -223,6 +243,9 @@ cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
 - 필터/정렬: (URL searchParams / 상태 / 미정)
 
 #### 외부 서비스 목록
+
+> 위 추천 스택에서 프로젝트에 필요한 서비스를 선택하여 채운다.
+
 | 서비스 | 용도 | API 종류 | 비고 |
 |--------|------|----------|------|
 | (예: Stripe) | (결제) | (REST) | (sandbox 키 필요) |
