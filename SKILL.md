@@ -130,6 +130,13 @@ CLAUDE.md 생성 핵심 규칙:
 - `user-invocable`: 사용자가 직접 `/스킬명`으로 호출하면 true, Claude가 자동 판단이면 false
 - 본문: 계획서의 역할·트리거 조건·관련 기능 요구사항을 구체적 규칙으로 변환. TODO 남기지 않음.
 
+**조건부 생성 (계획서 에이전트 Tier가 3 — Agent Teams인 경우):**
+
+| 파일 | 커스터마이징 |
+|------|------------|
+| `commands/worktree.md` | 병렬 작업 시 worktree 생성·정리 가이드. |
+| `skills/agent-teams/SKILL.md` | 팀 구성 가이드: TeamCreate 사용법, 태스크 분배 패턴, worktree 필수 규칙, 실험 기능 활성화 방법. |
+
 ### Step 4: 검증
 
 ```bash
@@ -154,7 +161,7 @@ bash scripts/validate-env.sh
 ✅ 프로젝트 세팅 완료
 
 📁 생성: CLAUDE.md ({{LINE_COUNT}}줄) + .claude/ ({{FILE_COUNT}}개 파일)
-⚙️ 모드: {{SOLO/TEAM}}
+⚙️ 에이전트 Tier: {{SINGLE/SUBAGENTS/AGENT_TEAMS}}
 {{#IF_CONFLICTS}}⚠️ 호환성 주의: {{CONFLICT_SUMMARY}}{{/IF_CONFLICTS}}
 
 💡 다음 단계:

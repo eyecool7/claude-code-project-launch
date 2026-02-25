@@ -129,16 +129,29 @@ cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
 
 #### 에이전트 구조
 
-**단일 에이전트** (기본): 워크플로우가 단순하고 지침이 짧을 때
+프로젝트 규모에 따라 3단계 중 하나를 선택한다:
 
-**서브에이전트 분리** (필요 시):
-- 컨텍스트 윈도우 최적화가 필요할 때
-- 독립적 작업 블록이 명확히 구분될 때
+| Tier | 모드 | 적합한 경우 | 세팅 스킬 생성물 |
+|:----:|------|-----------|----------------|
+| 1 | **Single** | 기능 3개 이하, 워크플로우 단순 | CLAUDE.md + .claude/ 기본 구성 |
+| 2 | **Subagents** | 독립 작업 블록이 있고 컨텍스트 절약 필요 | Tier 1 + `.claude/agents/` 커스텀 에이전트 |
+| 3 | **Agent Teams** | 대규모, 에이전트 간 소통 필요, 병렬 세션 | Tier 2 + worktree 가이드 + 팀 구성 안내 |
 
-서브에이전트 사용 시:
+**Tier 선택 기준 (Claude Code 공식 가이드):**
+- Tier 1 → 2 전환: 작업이 독립적이고 결과만 필요할 때 (테스트, 리뷰, 탐색 등)
+- Tier 2 → 3 전환: 서브에이전트로 컨텍스트 한계를 치거나, 에이전트끼리 소통이 필요할 때
+
+**Tier 2 (Subagents) 사용 시:**
 - 메인(CLAUDE.md)이 오케스트레이터
 - 서브에이전트 간 직접 호출 금지 → 메인을 통해 조율
 - 각 에이전트: 이름, 역할, 입출력, 참조 스킬 명시
+- `isolation: worktree` 옵션으로 파일 충돌 방지 가능
+
+**Tier 3 (Agent Teams) 사용 시:**
+- 실험 기능 (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` 활성화 필요)
+- 팀 리드가 TeamCreate → 태스크 분배 → 결과 통합
+- 각 팀원은 독립 Claude Code 세션 (worktree 필수)
+- 팀원 간 SendMessage로 직접 소통 가능
 
 #### 스킬 목록
 
