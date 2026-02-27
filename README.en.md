@@ -22,19 +22,21 @@ Stop wasting context on copy-pasted generic templates. This plugin refines your 
 
 ### Marketplace (Recommended)
 
-```bash
-claude plugin marketplace add eyecool7/claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
+```
+/plugin marketplace add eyecool7/claude-code-project-setup
+/plugin install project-setup@claude-code-project-setup
 ```
 
-> Inside Claude Code TUI, prefix with `/` instead: `/plugin marketplace add ...`
+> Terminal CLI: `claude plugin marketplace add ...`
 
 ### Manual Install
 
 ```bash
 git clone https://github.com/eyecool7/claude-code-project-setup.git
-claude plugin marketplace add ./claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
+```
+```
+/plugin marketplace add ./claude-code-project-setup
+/plugin install project-setup@claude-code-project-setup
 ```
 
 ---
