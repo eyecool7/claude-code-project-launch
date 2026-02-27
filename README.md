@@ -22,22 +22,19 @@
 
 ### 마켓플레이스 (권장)
 
-Claude Code 안에서 실행:
+```bash
+claude plugin marketplace add eyecool7/claude-code-project-setup
+claude plugin install project-setup@claude-code-project-setup
+```
 
-```
-/plugin marketplace add eyecool7/claude-code-project-setup
-/plugin install project-setup@claude-code-project-setup
-```
+> Claude Code TUI 안에서는 앞에 `/`를 붙여 실행: `/plugin marketplace add ...`
 
 ### 수동 설치
 
 ```bash
-# 이 레포를 클론
 git clone https://github.com/eyecool7/claude-code-project-setup.git
-
-# Claude Code 안에서 로컬 마켓플레이스로 추가
-/plugin marketplace add ./claude-code-project-setup
-/plugin install project-setup@claude-code-project-setup
+claude plugin marketplace add ./claude-code-project-setup
+claude plugin install project-setup@claude-code-project-setup
 ```
 
 ---
