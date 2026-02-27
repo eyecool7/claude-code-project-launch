@@ -92,45 +92,21 @@
 
 ### 3. 툴 & 워크플로우 설계
 
-#### MCP 서버 선정
+#### 스킬 / MCP 선정
 
-기술 스택이 정해지면 아래 레퍼런스를 클론하여 검색하고 적합한 MCP 서버를 선정한다:
-```bash
-git clone --depth 1 https://github.com/johunsang/vive-md.git /tmp/vive-md
-```
-- **서버 카탈로그**: `/tmp/vive-md/vibe-coding/mcp/04-MCP-서버-카탈로그.md` — 스택별 추천 매트릭스 + 조합 레시피
-- **설정 패턴**: `/tmp/vive-md/vibe-coding/mcp/03-MCP-실전-패턴-모음.md` — 검증된 `.mcp.json` 설정 복사
-- **트러블슈팅**: `/tmp/vive-md/vibe-coding/mcp/README.md` (섹션 9) — 설정 오류 해결
+> **실제 검색과 설치는 refine 단계(`/project-setup:refine`)에서 Claude Code가 수행한다.**
+> 이 섹션에서는 프로젝트에 필요한 검색 키워드만 정리한다.
 
-산출물: 확정된 `.mcp.json`
+P0/P1 핵심 기능별로 어떤 전문 스킬이나 MCP가 도움될지 키워드로 정리:
 
-#### 스킬 선정
+| 기능 | 검색 키워드 | 예상 필요 (스킬/MCP) |
+|------|-----------|---------------------|
+| (예: 영상 생성) | remotion, video | (있을 것으로 예상 / 직접 구현 예정) |
 
-**P0/P1 핵심 기능별로 전문 스킬이 있는지 반드시 검색한다.**
-검색하지 않고 "직접 구현하면 됩니다"로 넘어가는 것은 금지.
+검색 소스·절차·설치는 `.claude/skills/skill-discovery/SKILL.md`에 정의되어 있다.
+refine 단계에서 이 스킬이 자동 실행되어 결과 테이블이 채워지고, setup 단계에서 설치된다.
 
-검색 절차:
-1. 위에서 클론한 vive-md 레포의 스킬 카탈로그를 검색:
-   - `/tmp/vive-md/vibe-coding/resources/Awesome-Claude-Skills-한국어-가이드.md` — 380개+ 스킬 탐색
-2. 각 P0/P1 기능의 핵심 키워드로 검색 (예: "PDF", "email", "payment", "auth", "image")
-3. 검색 결과를 아래 형식으로 정리:
-
-| 기능 | 검색 키워드 | 검색 결과 | 선택 |
-|------|-----------|----------|------|
-| (예: PDF 생성) | pdf, document, report | (찾은 스킬 이름 또는 "해당 없음") | (설치 / 직접 구현 + 이유) |
-
-4. 검색 결과가 없거나 부적합하면 "해당 없음 — 직접 구현" 으로 명시. 검색 자체를 생략하지 말 것.
-
-스킬 작성 참조: `/tmp/vive-md/vibe-coding/skills/` — 커스텀 스킬 작성 시 구조/패턴
-
-**필수 규칙: 프론트엔드가 포함된 프로젝트면 ui-ux-pro-max 스킬을 무조건 설치한다.**
-```bash
-git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git /tmp/ui-ux-pro-max-skill
-cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
-rm -rf /tmp/ui-ux-pro-max-skill
-```
-
-산출물: 기능별 스킬 검색 결과 테이블 + 설치할 스킬 목록 + 설치 명령어
+산출물: 기능별 검색 키워드 테이블 (refine에서 검색 결과로 업데이트됨)
 
 ---
 

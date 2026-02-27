@@ -148,13 +148,7 @@ Settings/Commands/Hooks/Agents:
 | `rules/frontend/react.md` | 템플릿 복사 후 프로젝트 컴포넌트 구조·도메인 폴더로 채움. |
 | `rules/frontend/styles.md` | 템플릿 복사 후 프로젝트 디자인 토큰으로 채움. |
 | `skills/design-rules/SKILL.md` | 템플릿 복사 후 TODO를 프로젝트 팔레트·다크모드로 채움. AI 디자인 키워드는 프로젝트에 맞게 1개씩 선택. |
-| `skills/ui-ux-pro-max/` | 외부 스킬 설치. 아래 명령어 실행: |
-
-```bash
-git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git /tmp/ui-ux-pro-max-skill
-cp -r /tmp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max .claude/skills/
-rm -rf /tmp/ui-ux-pro-max-skill
-```
+| `skills/ui-ux-pro-max/` | Step 3.5에서 skill-discovery를 통해 설치 (프론트엔드 프로젝트 필수). |
 
 **조건부 생성 (HAS_BACKEND=true + DB 사용):**
 
@@ -189,10 +183,33 @@ rm -rf /tmp/ui-ux-pro-max-skill
 | `commands/worktree.md` | 병렬 작업 시 worktree 생성·정리 가이드. |
 | `skills/agent-teams/SKILL.md` | 팀 구성 가이드: TeamCreate 사용법, 태스크 분배 패턴, worktree 필수 규칙, 실험 기능 활성화 방법. |
 
-### Step 3.5: .mcp.json 생성
+### Step 3.5: 스킬/MCP 검색 결과 검증 + 설치
 
-계획서 3번 "MCP 서버 선정" 섹션에 확정된 `.mcp.json`이 있으면 그대로 사용한다.
-없으면 스택 분석 결과와 계획서의 외부 서비스 목록을 기반으로 생성한다.
+계획서 3번 "툴 & 워크플로우 설계" 섹션을 확인한다.
+
+**검증:**
+- 섹션 3에 실제 검색 결과가 있는지 확인 (키워드만 있고 결과가 비어있으면 미완성)
+- refine 단계에서 스킬/MCP 검색이 수행됐으면 → 결과 테이블에 "설치" / "직접 구현" 판정이 있음
+
+**폴백 (검색 미수행 시):**
+섹션 3이 키워드만 있거나 비어있으면, `.claude/skills/skill-discovery/SKILL.md`의 검색 절차를 실행한다:
+1. vive-md 리포 클론 → 스킬 카탈로그 + MCP 카탈로그 검색
+2. 검색 결과를 사용자에게 보여주고 확인
+3. 확인된 결과를 계획서 섹션 3에 반영
+
+**스킬 설치:**
+검색 결과에서 "설치"로 확정된 스킬을 `.claude/skills/`에 설치한다.
+프론트엔드 프로젝트면 ui-ux-pro-max를 무조건 설치한다 (skill-discovery SKILL.md 참조).
+
+**정리:**
+```bash
+rm -rf /tmp/vive-md /tmp/skills-* /tmp/ui-ux-pro-max-skill
+```
+
+### Step 3.6: .mcp.json 생성
+
+계획서 3번 섹션의 MCP 검색 결과에서 확정된 MCP 서버로 `.mcp.json`을 생성한다.
+MCP 검색 결과가 없으면 스택 분석 결과와 계획서의 외부 서비스 목록을 기반으로 생성한다.
 
 **형식:**
 ```json

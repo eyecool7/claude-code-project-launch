@@ -46,4 +46,14 @@ if [ -f "$LESSONS_FILE" ]; then
   fi
 fi
 
+# Decisions 로드
+DECISIONS_FILE=".claude/decisions.md"
+if [ -f "$DECISIONS_FILE" ]; then
+  DECISION_COUNT=$(grep -c "^### " "$DECISIONS_FILE" 2>/dev/null || echo "0")
+  if [ "$DECISION_COUNT" -gt 0 ]; then
+    echo "📎 Decisions: ${DECISION_COUNT}건 — 최근 기록:"
+    grep -B0 -A4 "^### " "$DECISIONS_FILE" | tail -25
+  fi
+fi
+
 exit 0

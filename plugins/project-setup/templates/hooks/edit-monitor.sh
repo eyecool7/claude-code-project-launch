@@ -25,6 +25,19 @@ TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 # 기록
 echo "{\"file\":\"$CURRENT_FILE\",\"time\":\"$TIMESTAMP\"}" >> "$EDIT_LOG"
 
+# 결정 기록 트리거 파일 감지
+BASENAME=$(basename "$CURRENT_FILE")
+case "$BASENAME" in
+  package.json|*.config.ts|*.config.js|tsconfig*.json|.env*|docker-compose*)
+    DECISIONS_FILE=".claude/decisions.md"
+    TODAY=$(date -u +"%Y-%m-%d")
+    HAS_RECENT=$(grep -c "^### $TODAY" "$DECISIONS_FILE" 2>/dev/null || echo "0")
+    if [ "$HAS_RECENT" -eq 0 ]; then
+      echo "📝 $BASENAME 변경 감지 → .claude/decisions.md에 변경 사유를 기록하세요"
+    fi
+    ;;
+esac
+
 # 10분 내 같은 파일 3회 이상 수정 → 재검토 제안
 TEN_MIN_AGO=$(date -u -v-10M +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date -u -d '10 minutes ago' +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null)
 if [ -n "$TEN_MIN_AGO" ]; then
