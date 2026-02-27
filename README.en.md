@@ -8,11 +8,20 @@ Stop wasting context on copy-pasted generic templates. This plugin refines your 
 
 ## Usage
 
-| Step | Command | Description |
-|------|---------|-------------|
-| **1** | `/project-setup:plan` | Outputs planning prompt → **paste into claude.ai** → interview → save **project-plan.md** to project root |
-| **2** | `/project-setup:refine` | Deep technical interview in Plan mode → refine **project-plan.md** |
-| **3** | `/project-setup:setup` | Auto-generate CLAUDE.md + .claude/ + .mcp.json from plan |
+### Step 1. Create Project Plan
+
+Command `/project-setup:plan` : Generates `project-plan-prompt.md` in project root
+User : Paste `project-plan-prompt.md` prompt into **claude.ai** → Complete `project-plan.md` plan through interview → Save to project root
+
+### Step 2. Refine Project Plan
+
+Command `/project-setup:refine` : Generates `project-refine-prompt.md` in project root
+User : Paste `project-refine-prompt.md` prompt into **claude code** → Refine `project-plan.md` through interview → Save
+
+### Step 3. Project Setup
+
+Command `/project-setup:setup` : Auto-generate project config based on `project-plan.md` (CLAUDE.md + .claude/ + .mcp.json)
+User : `/clear` or new session → Enter `Start building the project` → Project setup begins based on `project-plan.md`
 
 > **Recommended:** Run Steps 1-2 (planning) and Step 3 (implementation) in separate sessions. Planning conversation history pollutes implementation context.
 
