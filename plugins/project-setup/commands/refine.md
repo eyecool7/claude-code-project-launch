@@ -1,22 +1,28 @@
 ---
-description: project-plan.md 기반 심층 인터뷰로 계획서 고도화. Plan Mode에서 실행 권장.
+description: 프로젝트 계획서 고도화 프롬프트를 파일로 생성. Claude Code에서 사용.
 ---
 
 # 프로젝트 계획서 고도화
 
-`project-plan.md`를 읽고, 구현 방식·트레이드오프·우려 사항 등 기술적 관점에서 심층 인터뷰를 진행하여 계획서의 완성도를 한 단계 더 높인다.
+## 실행 절차
 
-## 전제 조건
+1. Read 도구로 아래 템플릿 파일을 읽는다:
+   `~/.claude/plugins/cache/claude-code-project-setup/project-setup/1.0.0/templates/project-refine-prompt.md`
 
-- 계획서 작성이 완료되어 `project-plan.md`가 루트에 있어야 한다.
+2. Write 도구로 프로젝트 루트에 `project-refine-prompt.md`로 저장한다.
 
-## 실행
+3. 사용자에게 다음만 전달한다:
 
-@project-plan.md 를 읽고, AskUserQuestionTool을 사용해서 구현 방식, UI/UX, 우려 사항, 트레이드오프 등 모든 것에 대해 상세하게 인터뷰해줘. 단, 뻔한 질문은 하지 마.
+---
 
-충분히 깊이 있게, 완료될 때까지 계속 인터뷰한 다음, 최종 스펙을 project-plan.md에 작성해줘.
+`project-refine-prompt.md` 파일을 프로젝트 루트에 생성했습니다.
 
-## 출처
+**사용법:**
+1. `project-refine-prompt.md`를 열어서 프롬프트 내용을 **claude code** 채팅창에 붙여넣습니다.
+2. claude code 와 대화하며 `project-plan.md` 계획서를 고도화하세요.
+3. 수정된 계획서를 `project-plan.md`로 저장합니다.
+4. `/project-setup:setup` 명령어를 실행하여 다음 단계로 넘어갑니다.
 
-- Original idea & workflow credit: **@trq212 (Thariq)**
-- Source: Claude Code spec-based development workflow
+---
+
+**중요: 템플릿 내용을 화면에 출력하지 말 것. 파일 저장 + 위 안내만 출력.**
