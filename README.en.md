@@ -27,8 +27,6 @@ claude plugin marketplace add eyecool7/claude-code-project-setup
 claude plugin install project-setup@claude-code-project-setup
 ```
 
-> Inside Claude Code terminal TUI: `/plugin marketplace add ...`
-
 ### Manual Install
 
 ```bash

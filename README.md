@@ -27,8 +27,6 @@ claude plugin marketplace add eyecool7/claude-code-project-setup
 claude plugin install project-setup@claude-code-project-setup
 ```
 
-> Claude Code 터미널 TUI 안에서는: `/plugin marketplace add ...`
-
 ### 수동 설치
 
 ```bash
