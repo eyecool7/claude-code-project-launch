@@ -2,7 +2,7 @@
 
 [English](README.en.md)
 
-커맨드 3개로 Claude Code 프로젝트 세팅을 끝내주는 플러그인.
+스킬 3개로 Claude Code 프로젝트 세팅을 끝내주는 플러그인.
 
 무작정 복붙한 범용 템플릿으로 컨텍스트 낭비하는 건 이제 그만. 2단계 인터뷰로 프로젝트 계획서를 먼저 고도화한 뒤, 그 계획서에 기반해 CLAUDE.md(55줄) + path-scoped rules + auto-discovered skills + agents + hooks + MCP까지 18개 이상의 설정 파일을 프로젝트에 맞게 생성한다.
 
@@ -10,19 +10,19 @@
 
 ### Step 1. 계획서 작성
 
-**커맨드** `/project-setup:plan` : `project-plan-prompt.md`를 프로젝트 루트에 생성
+**스킬** `/project-setup:plan` : `project-plan-prompt.md`를 프로젝트 루트에 생성
 
 **사용자** : `project-plan-prompt.md` 프롬프트를 **claude.ai**에 붙이기 → 대화를 통해 `project-plan.md` 계획서 완성 → 프로젝트 루트에 저장
 
 ### Step 2. 계획서 고도화
 
-**커맨드** `/project-setup:refine` : `project-refine-prompt.md`를 프로젝트 루트에 생성
+**스킬** `/project-setup:refine` : `project-refine-prompt.md`를 프로젝트 루트에 생성
 
 **사용자** : `project-refine-prompt.md` 프롬프트를 **claude code**에 붙이기 → 대화를 통해 `project-plan.md` 계획서 고도화 → 저장
 
 ### Step 3. 프로젝트 세팅
 
-**커맨드** `/project-setup:setup` : `project-plan.md` 기반 프로젝트 세팅 (CLAUDE.md + .claude/ + .mcp.json 자동 생성)
+**스킬** `/project-setup:setup` : `project-plan.md` 기반 프로젝트 세팅 (CLAUDE.md + .claude/ + .mcp.json 자동 생성)
 
 **사용자** : `/clear` 또는 새창 → `프로젝트 구축을 시작해` 입력 → `project-plan.md` 계획서를 토대로 프로젝트 구축 시작
 
