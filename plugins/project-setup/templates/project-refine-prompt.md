@@ -2,9 +2,10 @@
 이 문서는 사용자가 Claude Code Plan Mode에서 바로 사용 가능한 '프로젝트 계획서 고도화 프롬프트'를 제공하고 사용 방법을 설명한다.
 
 ## 사용 방법
-> Claude Code에서 프로젝트 폴더를 열고, `references/claude-code-plan-mode-prompt.md`의 프롬프트를 입력한다.
-> Claude Code가 `project-plan.md`를 읽고, 구현 방식·트레이드오프·우려 사항 등 기술적 관점에서 심층 인터뷰를 진행하여 계획서의 완성도를 한 단계 더 높인다.
-> 충분한 인터뷰가 완료되면, 그 결과를 반영해 **완성된 스펙을 동일한 파일에 작성**한다.
+1. project-refine-prompt.md를 열어서 프롬프트 내용을 claude code 채팅창에 붙여넣습니다.
+2. claude code와 대화하며 project-plan.md 계획서를 고도화하세요.
+3. 수정된 계획서를 project-plan.md로 저장합니다.
+4. /project-setup:setup 스킬을 실행하여 다음 단계로 넘어갑니다.
 
 ## 전제 조건
 - 계획서 작성이 완료되어 `project-plan.md`가 루트에 있어야 한다.
