@@ -55,7 +55,7 @@ claude plugin install project-setup@claude-code-project-setup
 
 **사용자** : `/clear` 또는 새창 → `프로젝트 구축을 시작해` 입력 → claude code 가 `project-plan.md` 계획서를 토대로 프로젝트 구축 시작
 
-> **권장:** Step 1~2 (기획)과 Step 3 (세팅)은 별도 세션에서 실행. 기획 대화의 수정 히스토리가 세팅 컨텍스트를 오염시키므로 반드시 분리.
+> **권장:** Step 3 프로젝트 구축 시작 전에 `/clear` 로 컨텍스트를 비운다. 기획 대화의 수정 히스토리가 컨텍스트를 오염시키므로 반드시 분리.
 
 ---
 
