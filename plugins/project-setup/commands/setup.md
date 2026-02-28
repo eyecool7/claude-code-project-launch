@@ -82,6 +82,7 @@ bash "$PLUGIN_ROOT/scripts/validate-env.sh"
 
 `$PLUGIN_ROOT/templates/claude-md-template.md`를 기반으로 변수를 채운다:
 - **계획서** → 프로젝트명, 역할, 철학, 핵심 플로우
+- **계획서 4번** → `AGENT_TIER` (1/2/3), `AGENT_TABLE` (Tier 2/3일 때 에이전트 목록)
 - **Step 1 출력** → 스택 상세, 핵심 경로, 개발 명령어, 권한
 - **의존성 분석** → 충돌 경고, 주의사항
 
@@ -90,8 +91,13 @@ CLAUDE.md 생성 핵심 규칙:
 - 주요 의존성의 실제 import 경로와 설정 코드를 포함한다 ("X 사용" 수준이 아니라)
 - 의존성 충돌 감지 시 핵심 규칙 섹션에 ⚠️ 경고 추가
 - **검증 섹션을 핵심 규칙 바로 다음에 배치** — 가장 중요한 3줄
-- 목표: 55줄 내외. 80줄 절대 초과 금지.
+- 목표: 80줄 내외. 110줄 절대 초과 금지.
 - 수동적 규칙은 `.claude/rules/`에 분리 (자동 로드 + path 스코프), 능동적 워크플로우는 `.claude/skills/`에 분리
+
+**`{{AGENT_TIER_SECTION}}` 치환:** 계획서 4번의 AGENT_TIER 값에 따라:
+- **Tier 1**: `직렬 구현. 한 번에 하나의 기능씩 완성 후 다음으로 이동.`
+- **Tier 2**: `서브에이전트 위임 구현. 독립적인 작업은 Task 도구로 병렬 위임.` + 위임 기준, `.claude/agents/` 활용, Tier 변경 시 decisions.md 기록 규칙
+- **Tier 3**: `팀 모드 구현. claude -w feature-name (worktree)으로 독립 브랜치 생성.` + worktree 필수, agents/skills 참조, Tier 변경 시 decisions.md 기록 규칙
 
 ### Step 3: .claude/ 설정 생성
 
@@ -176,7 +182,23 @@ Settings/Commands/Hooks/Agents:
 - `user-invocable`: 사용자가 직접 `/스킬명`으로 호출하면 true, Claude가 자동 판단이면 false
 - 본문: 계획서의 역할·트리거 조건·관련 기능 요구사항을 구체적 규칙으로 변환. TODO 남기지 않음.
 
+**조건부 생성 (계획서 에이전트 Tier가 2 — Subagents인 경우):**
+
+계획서 4번의 에이전트 테이블에서 커스텀 에이전트를 `.claude/agents/`에 생성한다.
+기본 3개(test-runner, code-reviewer, debugger)는 이미 항상 생성됨.
+
+| 파일 | 커스터마이징 |
+|------|------------|
+| `agents/{에이전트명}.md` | 계획서의 역할·담당 범위를 기반으로 에이전트 프롬프트 작성 |
+
+생성 규칙:
+- 파일명: 계획서 에이전트명 (kebab-case, `.md`)
+- 본문: 에이전트의 역할, 접근 가능 파일 범위, 사용 도구(Task subagent_type), 완료 기준
+- 기본 3개와 중복되면 기본 에이전트를 확장 (새 파일 생성 X)
+
 **조건부 생성 (계획서 에이전트 Tier가 3 — Agent Teams인 경우):**
+
+Tier 2의 에이전트 생성을 포함하고, 추가로:
 
 | 파일 | 커스터마이징 |
 |------|------------|
@@ -233,6 +255,19 @@ MCP 검색 결과가 없으면 스택 분석 결과와 계획서의 외부 서�
 - HTTP 타입: `"type": "http"`, `"url"` 구조
 - 계획서에 MCP 서버가 없으면 `.mcp.json` 생성 생략
 
+### Step 3.7: Git 초기화 (신규 프로젝트)
+
+git 저장소가 없으면 초기화한다. worktree 기반 병렬 작업(Tier 2/3)의 전제 조건.
+
+1. `.git` 디렉토리 존재 확인
+2. 없으면:
+   - `git init`
+   - `.gitignore` 생성 (node_modules, .env*, output/, .next/, dist/ 등)
+   - 초기 커밋: `git add -A && git commit -m "chore: initial project setup"`
+3. 이미 있으면: 건너뜀
+
+**AGENT_TIER가 2 이상일 때**: git 저장소가 반드시 필요. 없으면 사용자에게 경고 후 자동 생성.
+
 ### Step 4: 검증
 
 ```bash
@@ -241,7 +276,7 @@ bash "$PLUGIN_ROOT/scripts/validate-env.sh"
 ```
 
 검증 항목:
-- CLAUDE.md 존재 여부 및 80줄 이하 확인
+- CLAUDE.md 존재 여부 및 110줄 이하 확인
 - 치환되지 않은 `{{변수}}` 잔존 여부
 - TODO/FIXME/Placeholder 잔존 여부 (모든 생성 파일 대상)
 - 필수 `.claude/rules/` 파일 존재 + frontmatter 확인
@@ -299,7 +334,7 @@ bash "$PLUGIN_ROOT/scripts/validate-env.sh"
 
 ## 문제 해결
 
-### CLAUDE.md가 80줄을 초과할 때
+### CLAUDE.md가 110줄을 초과할 때
 원인: 규칙이 너무 많이 인라인됨.
 해결: 수동적 규칙은 `.claude/rules/`로, 능동적 워크플로우는 `.claude/skills/`로 이동.
 판단 기준: "이 줄을 지우면 Claude가 실수하는가?" 아니면 → 삭제 또는 이동.

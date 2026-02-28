@@ -16,8 +16,8 @@ if [ ! -f "$ROOT/CLAUDE.md" ]; then
 else
   # --- 2. CLAUDE.md 줄 수 ---
   LINE_COUNT=$(wc -l < "$ROOT/CLAUDE.md")
-  if [ "$LINE_COUNT" -gt 80 ]; then
-    echo "❌ CLAUDE.md is ${LINE_COUNT} lines (max: 80). Use @imports for detailed rules."
+  if [ "$LINE_COUNT" -gt 110 ]; then
+    echo "❌ CLAUDE.md is ${LINE_COUNT} lines (max: 110). Use @imports for detailed rules."
     ERRORS=$((ERRORS + 1))
   else
     echo "✅ CLAUDE.md: ${LINE_COUNT} lines"
