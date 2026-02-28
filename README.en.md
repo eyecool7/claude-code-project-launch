@@ -2,18 +2,28 @@
 
 [한국어](README.md)
 
-One plan to set up your entire Claude Code project.
+## Why This Plugin?
 
-Draft your plan, refine it through a deep technical interview, then follow 3 steps — /plan→/refine→/setup — to auto-generate CLAUDE.md and 19+ config files tailored to your project. Cross-session context continuity, dependency conflict detection, tier-based scaling, and community skill auto-discovery included. Stop wasting context on copy-pasted generic templates.
+Every time you start a project, the anxiety hits. Something's missing — but you don't know what.
 
-## Features
+> How do I write a plan that's actually good?
+> How many lines should CLAUDE.md be? Some say 58, others 500.
+> Subagents, team mode — which one should I use?
+> Which skills, which MCP servers should I pick?
+> Error handling? Security? What else am I forgetting?
+
+This plugin answers all of these at once.
+
+Draft your plan, refine it through a deep technical interview, then follow `/plan`→`/refine`→`/setup` — CLAUDE.md and 19+ config files are auto-generated, tailored to your project. Cross-session context continuity, dependency conflict detection, tier-based scaling, and community skill auto-discovery included. Stop wasting context on copy-pasted generic templates.
+
+### Features
 
 1. **Two-pass planning for airtight design** — Interview-based planning in claude.ai, then deep technical review in Claude Code. The plan itself is the differentiator.
 2. **One plan, 3-step auto-setup** — Just follow /plan→/refine→/setup and get project-tailored CLAUDE.md, rules, skills, agents, and hooks auto-generated.
 3. **Tier-based scaling** — Single agent → subagent delegation → team parallelism, expanding as your project grows.
 4. **Community skill & MCP auto-discovery** — Searches 380+ skill catalogs before building from scratch. Installs only after user confirmation.
-5. **Cross-session context continuity** — Technical decisions in decisions.md, lessons learned in lessons.md, auto-loaded every session via hooks.
-6. **Structural error prevention** — analyze-project.sh detects stack/dependency conflicts, validate-setup.sh catches unreplaced variables, leftover TODOs, and hardcoded secrets.
+5. **Context never breaks between sessions** — Technical decisions and lessons learned auto-accumulate and reload every session.
+6. **Mistakes are structurally prevented** — Stack and dependency conflicts auto-detected, missing configs and security gaps caught by validation scripts.
 
 ---
 
