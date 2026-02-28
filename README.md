@@ -29,20 +29,29 @@
 
 ## 설치
 
-### 마켓플레이스 (권장)
+### 방법 1: 터미널 CLI
+
+일반 터미널 (zsh/bash)에서 실행하세요. Claude Code 채팅창이 아닙니다.
 
 ```bash
 claude plugin marketplace add eyecool7/claude-code-project-setup
 claude plugin install project-setup@claude-code-project-setup
+
+# 설치 확인
+claude plugin list
 ```
 
-### 수동 설치
+### 방법 2: Claude Code UI
 
-```bash
-git clone https://github.com/eyecool7/claude-code-project-setup.git
-claude plugin marketplace add ./claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
-```
+1. Claude Code 세션에서 `/manage` 입력 → **Manage plugins** 선택
+2. **Marketplaces** 탭 → 입력창에 `eyecool7/claude-code-project-setup` 입력 → **Add**
+3. **Plugins** 탭 → `project-setup` 옆 **Install** 클릭
+4. 상단 **Restart** 클릭하여 변경사항 적용
+
+### 요구사항
+
+- Claude Code v1.0.33 이상 (`claude --version`으로 확인)
+- 버전이 낮으면: `npm update -g @anthropic-ai/claude-code`
 
 ---
 

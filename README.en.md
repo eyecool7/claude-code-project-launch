@@ -53,20 +53,29 @@ Draft your plan, refine it through a deep technical interview, then follow `/pla
 
 ## Installation
 
-### Marketplace (Recommended)
+### Method 1: Terminal CLI
+
+Run in a regular terminal (zsh/bash). Not in the Claude Code chat window.
 
 ```bash
 claude plugin marketplace add eyecool7/claude-code-project-setup
 claude plugin install project-setup@claude-code-project-setup
+
+# Verify installation
+claude plugin list
 ```
 
-### Manual Install
+### Method 2: Claude Code UI
 
-```bash
-git clone https://github.com/eyecool7/claude-code-project-setup.git
-claude plugin marketplace add ./claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
-```
+1. In a Claude Code session, type `/manage` → Select **Manage plugins**
+2. **Marketplaces** tab → Enter `eyecool7/claude-code-project-setup` → **Add**
+3. **Plugins** tab → Click **Install** next to `project-setup`
+4. Click **Restart** at the top to apply changes
+
+### Requirements
+
+- Claude Code v1.0.33 or higher (check with `claude --version`)
+- If outdated: `npm update -g @anthropic-ai/claude-code`
 
 ---
 
