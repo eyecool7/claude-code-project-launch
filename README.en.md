@@ -4,7 +4,7 @@
 
 Set up your entire Claude Code project in 3 commands.
 
-Stop wasting context on copy-pasted generic templates. This plugin refines your project plan through a 2-step interview first, then generates 18+ config files tailored to your project: CLAUDE.md (~55 lines) + path-scoped rules + auto-discovered skills + agents + hooks + MCP.
+Stop wasting context on copy-pasted generic templates. This plugin refines your project plan through a 2-step interview first, then generates 18+ config files tailored to your project: CLAUDE.md (~80 lines) + path-scoped rules + auto-discovered skills + agents + hooks + MCP.
 
 ## Usage
 
@@ -68,7 +68,7 @@ claude plugin install project-setup@claude-code-project-setup
 
 | File | Contents |
 |------|----------|
-| **CLAUDE.md** | Based on plan, ~55 lines |
+| **CLAUDE.md** | Based on plan, ~80 lines |
 | .claude/rules/ (4) | conventions, security, error-handling, testing |
 | .claude/skills/ (3) | project-directory, easy-refactoring, skill-discovery |
 | .claude/agents/ (3) | test-runner, code-reviewer, debugger |
@@ -88,6 +88,7 @@ claude plugin install project-setup@claude-code-project-setup
 | .claude/skills/ui-ux-pro-max/ | Frontend project (external skill) |
 | .claude/skills/dependencies/ | Dependency conflicts detected |
 | .claude/skills/{domain-skill}/ | Plan-defined skills |
+| .claude/agents/{custom-agent}.md | Tier 2+ agents (plan-defined) |
 | .claude/skills/agent-teams/ | Tier 3 agent teams |
 | **.mcp.json** | MCP servers selected |
 
@@ -99,7 +100,7 @@ Always-generated base config and conditionally-generated additions based on proj
 
 ```
 my-project/
-├── CLAUDE.md                       ← ⭐ ~55 lines. Auto-loaded every session.
+├── CLAUDE.md                       ← ⭐ ~80 lines. Auto-loaded every session.
 ├── .claude/
 │   ├── commands/ (3)               ← /review, /check, /commit-push-pr
 │   ├── hooks/ (3)                  ← session-start, edit-monitor, pre-commit-check
@@ -128,6 +129,7 @@ my-project/
 │   ├── skills/ui-ux-pro-max/       ← Frontend project (external skill)
 │   ├── skills/dependencies/        ← Dependency conflicts detected
 │   ├── skills/{domain-skill}/      ← Plan-defined skills
+│   ├── agents/{custom-agent}.md   ← Tier 2+ agents (plan-defined)
 │   └── skills/agent-teams/         ← Tier 3 agent teams
 ├── .mcp.json                       ← MCP servers selected
 └── project-plan.md                 ← Kept for reference

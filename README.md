@@ -4,7 +4,7 @@
 
 스킬 3개로 Claude Code 프로젝트 세팅을 끝내주는 플러그인.
 
-무작정 복붙한 범용 템플릿으로 컨텍스트 낭비하는 건 이제 그만. 2단계 인터뷰로 프로젝트 계획서를 먼저 고도화한 뒤, 그 계획서에 기반해 CLAUDE.md(55줄) + path-scoped rules + auto-discovered skills + agents + hooks + MCP까지 18개 이상의 설정 파일을 프로젝트에 맞게 생성한다.
+무작정 복붙한 범용 템플릿으로 컨텍스트 낭비하는 건 이제 그만. 2단계 인터뷰로 프로젝트 계획서를 먼저 고도화한 뒤, 그 계획서에 기반해 CLAUDE.md(80줄) + path-scoped rules + auto-discovered skills + agents + hooks + MCP까지 18개 이상의 설정 파일을 프로젝트에 맞게 생성한다.
 
 ## 설치
 
@@ -78,7 +78,7 @@ claude plugin install project-setup@claude-code-project-setup
 
 | 파일 | 내용 |
 |------|------|
-| **CLAUDE.md** | 계획서 기반, 55줄 내외 |
+| **CLAUDE.md** | 계획서 기반, 80줄 내외 |
 | .claude/rules/ (4개) | conventions, security, error-handling, testing |
 | .claude/skills/ (3개) | project-directory, easy-refactoring, skill-discovery |
 | .claude/agents/ (3개) | test-runner, code-reviewer, debugger |
@@ -98,6 +98,7 @@ claude plugin install project-setup@claude-code-project-setup
 | .claude/skills/ui-ux-pro-max/ | 프론트엔드 프로젝트 (외부 스킬) |
 | .claude/skills/dependencies/ | 의존성 충돌 감지 시 |
 | .claude/skills/{도메인-스킬}/ | 계획서에 정의된 스킬 |
+| .claude/agents/{커스텀-에이전트}.md | Tier 2+ 에이전트 (계획서 정의) |
 | .claude/skills/agent-teams/ | Tier 3 에이전트 팀 |
 | **.mcp.json** | MCP 서버 선정 시 |
 
@@ -109,7 +110,7 @@ claude plugin install project-setup@claude-code-project-setup
 
 ```
 my-project/
-├── CLAUDE.md                       ← ⭐ 55줄 내외. 매 세션 자동 로드.
+├── CLAUDE.md                       ← ⭐ 80줄 내외. 매 세션 자동 로드.
 ├── .claude/
 │   ├── commands/ (3)               ← /review, /check, /commit-push-pr
 │   ├── hooks/ (3)                  ← session-start, edit-monitor, pre-commit-check
@@ -138,6 +139,7 @@ my-project/
 │   ├── skills/ui-ux-pro-max/       ← 프론트엔드 프로젝트 (외부 스킬)
 │   ├── skills/dependencies/        ← 의존성 충돌 감지 시
 │   ├── skills/{도메인-스킬}/       ← 계획서에 정의된 스킬
+│   ├── agents/{커스텀-에이전트}.md ← Tier 2+ 에이전트 (계획서 정의)
 │   └── skills/agent-teams/         ← Tier 3 에이전트 팀
 ├── .mcp.json                       ← MCP 서버 선정 시
 └── project-plan.md                 ← 참조용 유지
