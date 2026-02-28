@@ -103,34 +103,60 @@ Auto-detects stack/dependency conflicts and missing configs. Non-standard combos
 ### Step 1. Create Project Plan
 
 `/project-launch:plan` → generates `project-plan-prompt.md`
-
 Paste the prompt into **claude.ai**, complete the plan through interview → save as `project-plan.md` in project root
 
-> <sub>**On run:**<br>1. Open `project-plan-prompt.md` and fill in `[Project Name]` and `Project Overview`.<br>2. Paste the full prompt into **claude.ai** and complete the plan through conversation.<br>3. Save the finished plan as `project-plan.md` in the project root.<br>4. Run `/project-launch:refine` to proceed to the next step.</sub>
+> **On run:**
+> 1. Open `project-plan-prompt.md` and fill in `[Project Name]` and `Project Overview`.
+> 2. Paste the full prompt into **claude.ai** and complete the plan through conversation.
+> 3. Save the finished plan as `project-plan.md` in the project root.
+> 4. Run `/project-launch:refine` to proceed to the next step.
 
 ### Step 2. Refine Project Plan
 
 `/project-launch:refine` → generates `project-refine-prompt.md`
-
 Paste the prompt into **Claude Code**, run technical review + skill/MCP search → refine `project-plan.md` → save
 
-> <sub>**On run:**<br>1. Open `project-refine-prompt.md` and paste the prompt into **Claude Code**.<br>2. Refine `project-plan.md` through conversation with Claude Code.<br>3. Save the refined plan back to `project-plan.md` in the project root.<br>4. Run `/project-launch:setup` to proceed to the next step.</sub>
+> **On run:**
+> 1. Open `project-refine-prompt.md` and paste the prompt into **Claude Code**.
+> 2. Refine `project-plan.md` through conversation with Claude Code.
+> 3. Save the refined plan back to `project-plan.md` in the project root.
+> 4. Run `/project-launch:setup` to proceed to the next step.
 
 ### Step 3. Project Setup
 
 `/project-launch:setup` → auto-generates CLAUDE.md + .claude/ + .mcp.json
-
 On completion, **Section 7 (Setup Results)** is auto-appended to `project-plan.md`. Context preserved after `/clear`.
 
-> <sub>**On run:**<br>Setup complete.<br><br>| Item | Result |<br>| CLAUDE.md | {lines} lines |<br>| .claude/ files | {count} files |<br>| Work mode | Tier {1/2/3} — {mode} |<br>| Community skills | {count} installed |<br>| MCP servers | {count} configured |<br><br>Run `/clear` then `/project-launch:build` to start plan-based development.</sub>
+> **On run:**
+> Setup complete.
+>
+> | Item | Result |
+> |------|--------|
+> | CLAUDE.md | {lines} lines |
+> | .claude/ files | {count} files |
+> | Work mode | Tier {1/2/3} — {mode} |
+> | Community skills | {count} installed |
+> | MCP servers | {count} configured |
+>
+> Run `/clear` then `/project-launch:build` to start plan-based development.
 
 ### Step 4. Start Building
 
 `/project-launch:build` → plan-based status analysis + session goals output
-
 Run at the start of every session. For re-entry (returning after days), it reads the full plan + `decisions.md`, `lessons.md`, and `git log` to determine where to continue.
 
-> <sub>**On run:**<br>📋 **Project Status**<br><br>| Phase | Status | Notes |<br>| Phase 1: Foundation | ✅/🔨/⬜ | ... |<br><br>**Current Phase:** Phase N — {name}<br>**Session goals:** (2–4 items from incomplete criteria)<br>**Notes:** Related decisions.md + lessons.md entries<br><br>📝 Record rules: decisions.md (on tech decisions), lessons.md (on failure resolution), self-check before session end</sub>
+> **On run:**
+> 📋 **Project Status**
+>
+> | Phase | Status | Notes |
+> |-------|:------:|-------|
+> | Phase 1: Foundation | ✅/🔨/⬜ | ... |
+>
+> **Current Phase:** Phase N — {name}
+> **Session goals:** (2–4 items from incomplete criteria)
+> **Notes:** Related decisions.md + lessons.md entries
+>
+> 📝 Record rules: decisions.md (on tech decisions), lessons.md (on failure resolution), self-check before session end
 
 ---
 
