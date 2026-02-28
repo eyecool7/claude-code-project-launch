@@ -24,8 +24,8 @@ git clone --depth 1 https://github.com/johunsang/vive-md.git /tmp/vive-md
 | 1 | vive-md 스킬 카탈로그 | `/tmp/vive-md/vibe-coding/resources/Awesome-Claude-Skills-한국어-가이드.md` | 380+ 스킬 키워드 검색 |
 | 2 | vive-md MCP 서버 카탈로그 | `/tmp/vive-md/vibe-coding/mcp/04-MCP-서버-카탈로그.md` | 스택별 MCP 서버 선정 |
 | 3 | vive-md MCP 설정 패턴 | `/tmp/vive-md/vibe-coding/mcp/03-MCP-실전-패턴-모음.md` | 검증된 .mcp.json 레퍼런스 |
-| 4 | Anthropic 공식 | `github.com/anthropics/skills` | 공식 스킬 |
-| 5 | Trail of Bits | `github.com/trailofbits/skills` | 보안/정적분석/리뷰 |
+| 4 | Anthropic 공식 | `github.com/anthropics/skills` | 공식 스킬 8.3k
+| 5 | Trail of Bits | `github.com/trailofbits/skills` | 보안/정적분석/리뷰 3k|
 
 우선순위 1~3은 vive-md 한 번 클론으로 전부 검색 가능.
 4~5는 해당 분야가 프로젝트에 필요할 때만 추가 클론.
