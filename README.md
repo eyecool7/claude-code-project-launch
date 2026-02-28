@@ -1,4 +1,4 @@
-# claude-code-project-setup
+# claude-code-project-launch
 
 [English](README.en.md)
 
@@ -34,8 +34,8 @@
 일반 터미널 (zsh/bash)에서 실행하세요. Claude Code 채팅창이 아닙니다.
 
 ```bash
-claude plugin marketplace add eyecool7/claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
+claude plugin marketplace add eyecool7/claude-code-project-launch
+claude plugin install project-launch@claude-code-project-launch
 
 # 설치 확인
 claude plugin list
@@ -44,8 +44,8 @@ claude plugin list
 ### 방법 2: Claude Code UI
 
 1. Claude Code 세션에서 `/manage` 입력 → **Manage plugins** 선택
-2. **Marketplaces** 탭 → 입력창에 `eyecool7/claude-code-project-setup` 입력 → **Add**
-3. **Plugins** 탭 → `project-setup` 옆 **Install** 클릭
+2. **Marketplaces** 탭 → 입력창에 `eyecool7/claude-code-project-launch` 입력 → **Add**
+3. **Plugins** 탭 → `project-launch` 옆 **Install** 클릭
 4. 상단 **Restart** 클릭하여 변경사항 적용
 
 ### 요구사항
@@ -59,10 +59,10 @@ claude plugin list
 
 | 스킬 | 설명 |
 |------|------|
-| `/project-setup:plan` | 계획서 작성 프롬프트 생성 |
-| `/project-setup:refine` | 계획서 고도화 프롬프트 생성 |
-| `/project-setup:setup` | 계획서 기반 프로젝트 세팅 |
-| `/project-setup:build` | 구축 킥오프 — Phase 판별 + 세션 계획 |
+| `/project-launch:plan` | 계획서 작성 프롬프트 생성 |
+| `/project-launch:refine` | 계획서 고도화 프롬프트 생성 |
+| `/project-launch:setup` | 계획서 기반 프로젝트 세팅 |
+| `/project-launch:build` | 구축 킥오프 — Phase 판별 + 세션 계획 |
 
 ---
 
@@ -70,19 +70,19 @@ claude plugin list
 
 ### Step 1. 계획서 작성
 
-`/project-setup:plan` : `project-plan-prompt.md`를 프로젝트 루트에 생성
+`/project-launch:plan` : `project-plan-prompt.md`를 프로젝트 루트에 생성
 
 **사용자** : `project-plan-prompt.md` 프롬프트를 **claude.ai**에 붙이기 → 대화를 통해 `project-plan.md` 계획서 완성 → 프로젝트 루트에 저장
 
 ### Step 2. 계획서 고도화
 
-`/project-setup:refine` : `project-refine-prompt.md`를 프로젝트 루트에 생성
+`/project-launch:refine` : `project-refine-prompt.md`를 프로젝트 루트에 생성
 
 **사용자** : `project-refine-prompt.md` 프롬프트를 **claude code**에 붙이기 → 대화를 통해 `project-plan.md` 계획서 고도화 → 저장
 
 ### Step 3. 프로젝트 세팅
 
-`/project-setup:setup` : `project-plan.md` 기반 프로젝트 세팅 (CLAUDE.md + .claude/ + .mcp.json 자동 생성)
+`/project-launch:setup` : `project-plan.md` 기반 프로젝트 세팅 (CLAUDE.md + .claude/ + .mcp.json 자동 생성)
 
 셋업 완료 시 `project-plan.md`에 **Section 7 (셋업 결과)**이 자동 추가된다. `/clear` 후에도 셋업 맥락이 보존됨.
 
@@ -90,11 +90,11 @@ claude plugin list
 
 ### Step 4. 프로젝트 구축 시작
 
-`/project-setup:build` : 계획서 + 코드베이스 분석 → 현재 Phase 판별 → 세션 작업 계획 출력
+`/project-launch:build` : 계획서 + 코드베이스 분석 → 현재 Phase 판별 → 세션 작업 계획 출력
 
-**사용자** : `/clear` 또는 새창 → `/project-setup:build` 입력 → Phase 현황 + 이번 세션 목표 + 기록 리마인드 확인 → 구축 진행
+**사용자** : `/clear` 또는 새창 → `/project-launch:build` 입력 → Phase 현황 + 이번 세션 목표 + 기록 리마인드 확인 → 구축 진행
 
-매 세션 시작 시 실행하면 된다. 재진입(일 후 복귀) 시에도 동일하게 `/project-setup:build`로 시작하면 decisions.md, lessons.md, git log를 읽고 이어서 진행할 Phase를 판별한다.
+매 세션 시작 시 실행하면 된다. 재진입(일 후 복귀) 시에도 동일하게 `/project-launch:build`로 시작하면 decisions.md, lessons.md, git log를 읽고 이어서 진행할 Phase를 판별한다.
 
 ---
 
@@ -201,22 +201,22 @@ my-project/
 ## 플러그인 구조
 
 ```
-claude-code-project-setup/
+claude-code-project-launch/
 ├── .claude-plugin/
 │   └── marketplace.json         ← 마켓플레이스 메타데이터
 ├── plugins/
-│   └── project-setup/
+│   └── project-launch/
 │       ├── .claude-plugin/
 │       │   └── plugin.json      ← 플러그인 정의
 │       ├── commands/
-│       │   ├── plan.md          ← /project-setup:plan
-│       │   ├── refine.md        ← /project-setup:refine
-│       │   ├── setup.md         ← /project-setup:setup
-│       │   └── build.md         ← /project-setup:build
+│       │   ├── plan.md          ← /project-launch:plan
+│       │   ├── refine.md        ← /project-launch:refine
+│       │   ├── setup.md         ← /project-launch:setup
+│       │   └── build.md         ← /project-launch:build
 │       ├── templates/           ← 생성 시 참조할 템플릿
 │       │   ├── project-plan-prompt.md
 │       │   ├── project-refine-prompt.md
-│       │   ├── project-setup-prompt.md
+│       │   ├── project-launch-prompt.md
 │       │   ├── claude-md-template.md
 │       │   ├── rules/
 │       │   ├── skills/

@@ -1,4 +1,4 @@
-# claude-code-project-setup
+# claude-code-project-launch
 
 [한국어](README.md)
 
@@ -31,19 +31,19 @@ Draft your plan, refine it through a deep technical interview, then follow `/pla
 
 ### Step 1. Create Project Plan
 
-**Command** `/project-setup:plan` : Generates `project-plan-prompt.md` in project root
+**Command** `/project-launch:plan` : Generates `project-plan-prompt.md` in project root
 
 **User** : Paste `project-plan-prompt.md` prompt into **claude.ai** → Complete `project-plan.md` plan through interview → Save to project root
 
 ### Step 2. Refine Project Plan
 
-**Command** `/project-setup:refine` : Generates `project-refine-prompt.md` in project root
+**Command** `/project-launch:refine` : Generates `project-refine-prompt.md` in project root
 
 **User** : Paste `project-refine-prompt.md` prompt into **claude code** → Refine `project-plan.md` through interview → Save
 
 ### Step 3. Project Setup
 
-**Command** `/project-setup:setup` : Auto-generate project config based on `project-plan.md` (CLAUDE.md + .claude/ + .mcp.json)
+**Command** `/project-launch:setup` : Auto-generate project config based on `project-plan.md` (CLAUDE.md + .claude/ + .mcp.json)
 
 Setup completion auto-appends **Section 7 (Setup Results)** to `project-plan.md`, preserving setup context after `/clear`.
 
@@ -51,11 +51,11 @@ Setup completion auto-appends **Section 7 (Setup Results)** to `project-plan.md`
 
 ### Step 4. Start Building
 
-**Command** `/project-setup:build` : Analyze plan + codebase → determine current Phase → output session action plan
+**Command** `/project-launch:build` : Analyze plan + codebase → determine current Phase → output session action plan
 
-**User** : `/clear` or new session → `/project-setup:build` → Review Phase status + session goals + process reminders → Start building
+**User** : `/clear` or new session → `/project-launch:build` → Review Phase status + session goals + process reminders → Start building
 
-Run at the start of every session. For re-entry (returning after days), `/project-setup:build` reads decisions.md, lessons.md, and git log to determine where to continue.
+Run at the start of every session. For re-entry (returning after days), `/project-launch:build` reads decisions.md, lessons.md, and git log to determine where to continue.
 
 ---
 
@@ -66,8 +66,8 @@ Run at the start of every session. For re-entry (returning after days), `/projec
 Run in a regular terminal (zsh/bash). Not in the Claude Code chat window.
 
 ```bash
-claude plugin marketplace add eyecool7/claude-code-project-setup
-claude plugin install project-setup@claude-code-project-setup
+claude plugin marketplace add eyecool7/claude-code-project-launch
+claude plugin install project-launch@claude-code-project-launch
 
 # Verify installation
 claude plugin list
@@ -76,8 +76,8 @@ claude plugin list
 ### Method 2: Claude Code UI
 
 1. In a Claude Code session, type `/manage` → Select **Manage plugins**
-2. **Marketplaces** tab → Enter `eyecool7/claude-code-project-setup` → **Add**
-3. **Plugins** tab → Click **Install** next to `project-setup`
+2. **Marketplaces** tab → Enter `eyecool7/claude-code-project-launch` → **Add**
+3. **Plugins** tab → Click **Install** next to `project-launch`
 4. Click **Restart** at the top to apply changes
 
 ### Requirements
@@ -190,18 +190,18 @@ my-project/
 ## Plugin Structure
 
 ```
-claude-code-project-setup/
+claude-code-project-launch/
 ├── .claude-plugin/
 │   └── marketplace.json         ← Marketplace metadata
 ├── plugins/
-│   └── project-setup/
+│   └── project-launch/
 │       ├── .claude-plugin/
 │       │   └── plugin.json      ← Plugin definition
 │       ├── commands/
-│       │   ├── plan.md          ← /project-setup:plan
-│       │   ├── refine.md        ← /project-setup:refine
-│       │   ├── setup.md         ← /project-setup:setup
-│       │   └── build.md         ← /project-setup:build
+│       │   ├── plan.md          ← /project-launch:plan
+│       │   ├── refine.md        ← /project-launch:refine
+│       │   ├── setup.md         ← /project-launch:setup
+│       │   └── build.md         ← /project-launch:build
 │       ├── templates/           ← Templates referenced during generation
 │       │   ├── claude-md-template.md
 │       │   ├── rules/

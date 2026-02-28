@@ -7,7 +7,7 @@ description: 프로젝트 구축 시작. 계획서 + 코드베이스 → Phase �
 프로젝트 계획서를 읽고, 현재 코드 상태를 분석하여, 이번 세션의 작업 계획을 수립한다.
 매 세션 시작 시 실행한다. 몇 번 실행해도 동일한 결과를 보장한다 (멱등).
 
-**전제 조건:** `/project-setup:setup` 완료 상태.
+**전제 조건:** `/project-launch:setup` 완료 상태.
 
 ## Step 1: 세팅 검증
 
@@ -15,10 +15,10 @@ description: 프로젝트 구축 시작. 계획서 + 코드베이스 → Phase �
 
 | 파일 | 없을 때 안내 |
 |------|------------|
-| `project-plan.md` | "계획서가 없습니다. `/project-setup:plan`부터 시작하세요." |
-| `CLAUDE.md` | "세팅이 완료되지 않았습니다. `/project-setup:setup`을 실행하세요." |
-| `.claude/decisions.md` | "decisions.md가 없습니다. `/project-setup:setup`을 실행하세요." |
-| `.claude/lessons.md` | "lessons.md가 없습니다. `/project-setup:setup`을 실행하세요." |
+| `project-plan.md` | "계획서가 없습니다. `/project-launch:plan`부터 시작하세요." |
+| `CLAUDE.md` | "세팅이 완료되지 않았습니다. `/project-launch:setup`을 실행하세요." |
+| `.claude/decisions.md` | "decisions.md가 없습니다. `/project-launch:setup`을 실행하세요." |
+| `.claude/lessons.md` | "lessons.md가 없습니다. `/project-launch:setup`을 실행하세요." |
 
 ## Step 2: 컨텍스트 로드
 
