@@ -58,6 +58,18 @@ else
     echo "✅ No TODO/Placeholder found"
   fi
 
+  # --- 3a-2. 계획서 섹션 3 검색 완료 여부 ---
+  PLAN_FILE="$ROOT/project-plan.md"
+  if [ -f "$PLAN_FILE" ]; then
+    SEARCH_NEEDED=0
+    SEARCH_NEEDED=$(grep -c '(검색 필요)' "$PLAN_FILE" 2>/dev/null) || true
+    if [ "$SEARCH_NEEDED" -gt 0 ]; then
+      echo "⚠️ project-plan.md에 '(검색 필요)' ${SEARCH_NEEDED}건 잔존 — refine 단계 스킬 검색이 미완성"
+    else
+      echo "✅ 계획서 섹션 3: 검색 완료"
+    fi
+  fi
+
   # --- 3b. Skills frontmatter 검증 ---
   for SKILL_DIR in "$ROOT"/.claude/skills/*/; do
     SKILL_FILE="$SKILL_DIR/SKILL.md"
