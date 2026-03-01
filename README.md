@@ -30,13 +30,6 @@
 3. **`/project-launch:setup`** — 프로젝트 세팅: 계획서 기반 CLAUDE.md 및 설정 파일 자동 생성
 4. **`/project-launch:build`** — 프로젝트 구축: 매 세션마다 현황 분석과 세션 목표 제시
 
-```
-/plan          →  /refine        →  /setup           →  /build
-계획서 작성       기술 리뷰         자동 세팅           구축 가이드
-(claude.ai)       (Claude Code)     CLAUDE.md +         진행 상황 파악
-                                    설정 20개 파일      오늘 할 일 제시
-```
-
 ---
 
 ## 핵심 기능

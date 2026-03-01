@@ -30,13 +30,6 @@ Follow 4 commands, and project-tailored config is auto-generated.
 3. **`/project-launch:setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
 4. **`/project-launch:build`** — Project build: status analysis and session goals every session
 
-```
-/plan          →  /refine        →  /setup           →  /build
-Plan creation     Technical review  Auto-setup          Build guide
-(claude.ai)       (Claude Code)     CLAUDE.md +         Where you left off
-                                    20 config files     Today's tasks
-```
-
 ---
 
 ## Key Features
