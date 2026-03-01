@@ -152,7 +152,7 @@ claude plugin list
 
 ### Step 4. 구축 시작
 
-`/project-launch:build` 명령어 실행 → 계획서 기반 현황 분석 + 세션 목표 출력 → 구축 시작 (며칠 후 재진입해도 계획서 전체 + `decisions.md`, `lessons.md`, `git log`를 읽고 현재 진행 지점 판별)
+`/project-launch:build` 명령어 실행 → 계획서 기반 현황 분석 + 구축 계획 출력 → 구축 시작 (며칠 후 재진입해도 계획서 전체 + `decisions.md`, `lessons.md`, `git log`를 읽고 현재 진행 지점 판별)
 
 > **출력 예시:**
 > 📋 **프로젝트 현황**
