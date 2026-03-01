@@ -23,7 +23,7 @@ You know you need a plan but don't know what to write, setup feels overwhelming,
 
 ## How Does It Work?
 
-Follow 4 commands, and project-tailored config is auto-generated.
+Follow the 4 commands in order, and your project setup and build are complete.
 
 1. **`/project-launch:plan`** — Plan creation: generate a project plan through a structured interview
 2. **`/project-launch:refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
@@ -107,13 +107,25 @@ claude plugin list
 
 Run `/project-launch:plan` → `project-plan-prompt.md` auto-generated → Paste prompt into claude.ai and complete `project-plan.md` through interview → Save `project-plan.md` in project root
 
+> 1. Open `project-plan-prompt.md` and fill in `[Project Name]` and `Project Overview`.
+> 2. Paste the full prompt into **claude.ai** and complete the plan through conversation.
+> 3. Save the finished plan as `project-plan.md` in the project root.
+> 4. Run `/project-launch:refine` to proceed to the next step.
+
 ### Step 2. Refine Project Plan
 
 Run `/project-launch:refine` → `project-refine-prompt.md` auto-generated → Paste prompt into Claude Code for technical review + skill/MCP search → Refine `project-plan.md` → Save in project root (overwrite)
 
+> 1. Open `project-refine-prompt.md` and paste the prompt into **Claude Code**.
+> 2. Refine `project-plan.md` through conversation with Claude Code.
+> 3. Save the refined plan back to `project-plan.md` in the project root.
+> 4. Run `/project-launch:setup` to proceed to the next step.
+
 ### Step 3. Project Setup
 
 Run `/project-launch:setup` → CLAUDE.md + .claude/ + .mcp.json auto-generated → **Setup results** auto-appended to `project-plan.md` → Setup context preserved even after `/clear`
+
+> Run `/clear` then `/project-launch:build` to start plan-based development.
 
 ### Step 4. Start Building
 

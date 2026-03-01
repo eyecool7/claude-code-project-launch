@@ -23,7 +23,7 @@
 
 ## 어떻게 작동하나요?
 
-4단계 명령어를 따라가면, 프로젝트에 맞는 설정이 자동으로 생성됩니다.
+4단계 명령어를 순서대로 따라가면, 프로젝트 설정과 구축이 완성됩니다.
 
 1. **`/project-launch:plan`** — 계획서 작성: 구조화된 인터뷰를 통해 프로젝트 계획서 생성
 2. **`/project-launch:refine`** — 계획서 고도화: 기술 심층 리뷰와 스킬·MCP 탐색으로 계획서 완성
@@ -107,13 +107,25 @@ claude plugin list
 
 `/project-launch:plan` 명령어 실행 → `project-plan-prompt.md` 자동 생성 → 프롬프트를 claude.ai에 붙이고 인터뷰를 통해 `project-plan.md` 완성 → 프로젝트 루트에 `project-plan.md` 저장
 
+> 1. `project-plan-prompt.md`를 열어서 `[프로젝트 이름]`과 `프로젝트 개요`를 채우세요.
+> 2. 프롬프트 전체 내용을 **claude.ai** 채팅창에 붙여넣고 대화하며 계획서를 완성하세요.
+> 3. 완성된 계획서를 `project-plan.md`로 저장하고 프로젝트 루트에 넣으세요.
+> 4. `/project-launch:refine`을 실행하여 다음 단계로 넘어갑니다.
+
 ### Step 2. 계획서 고도화
 
 `/project-launch:refine` 명령어 실행 → `project-refine-prompt.md` 자동 생성 → 프롬프트를 Claude Code에 붙이고 기술 리뷰 + 스킬/MCP 검색 → `project-plan.md` 고도화 → 프로젝트 루트에 저장 (엎어쓰기)
 
+> 1. `project-refine-prompt.md`를 열어서 프롬프트 내용을 **Claude Code** 채팅창에 붙여넣습니다.
+> 2. Claude Code와 대화하며 `project-plan.md` 계획서를 고도화하세요.
+> 3. 수정된 계획서를 프로젝트 루트에 `project-plan.md`로 다시 저장합니다.
+> 4. `/project-launch:setup`을 실행하여 다음 단계로 넘어갑니다.
+
 ### Step 3. 프로젝트 세팅
 
 `/project-launch:setup` 명령어 실행 → CLAUDE.md + .claude/ + .mcp.json 자동 생성 → 셋업 완료 시 `project-plan.md`에 **셋업 결과**가 자동 추가 → `/clear` 후에도 셋업 맥락 보존
+
+> `/clear`로 컨텍스트를 비우고 `/project-launch:build`를 실행하면 계획서 기반 개발이 시작됩니다.
 
 ### Step 4. 구축 시작
 
