@@ -23,10 +23,10 @@ From plan writing to auto-setup and step-by-step build guidance — a Launchpad 
 
 Follow 4 commands, and project-tailored config is auto-generated.
 
-1. **`/plan`** — Plan creation: generate a project plan through a structured interview
-2. **`/refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
-3. **`/setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
-4. **`/build`** — Project build: status analysis and session goals every session
+1. **`/project-launch:plan`** — Plan creation: generate a project plan through a structured interview
+2. **`/project-launch:refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
+3. **`/project-launch:setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
+4. **`/project-launch:build`** — Project build: status analysis and session goals every session
 
 ```
 [Session 1 — Plan]                [Session 2 — Setup]      [Session 3+ — Build]
@@ -85,7 +85,7 @@ Structured interview-based planning in claude.ai, then deep technical review in 
 
 ### 2. Plan-Driven 4-Step Guide for Automated Project Setup
 
-Follow `/plan` → `/refine` → `/setup` → `/build` and project-tailored CLAUDE.md, rules, skills, agents, and hooks are auto-generated. From CLAUDE.md length to security settings, the plan decides.
+Follow `/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` and project-tailored CLAUDE.md, rules, skills, agents, and hooks are auto-generated. From CLAUDE.md length to security settings, the plan decides.
 
 ### 3. Auto-Detected Tier-Based Work Mode for Your Project Scale
 
@@ -101,7 +101,7 @@ During the refine step, skills and MCP servers your project needs are searched f
 
 ### 5. Cross-Session Context Continuity via Decision & Troubleshooting Logs
 
-`decisions.md` and `lessons.md` accumulate automatically. Run `/build` in a new session and it reads all prior records to restore context.
+`decisions.md` and `lessons.md` accumulate automatically. Run `/project-launch:build` in a new session and it reads all prior records to restore context.
 
 ### 6. Validation Scripts to Catch Stack Conflicts & Security Gaps Early
 

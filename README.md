@@ -23,10 +23,10 @@
 
 4단계 명령어를 따라가면, 프로젝트에 맞는 설정이 자동으로 생성됩니다.
 
-1. **`/plan`** — 계획서 작성: 구조화된 인터뷰를 통해 프로젝트 계획서 생성
-2. **`/refine`** — 계획서 고도화: 기술 심층 리뷰와 스킬·MCP 탐색으로 계획서 완성
-3. **`/setup`** — 프로젝트 세팅: 계획서 기반 CLAUDE.md 및 설정 파일 자동 생성
-4. **`/build`** — 프로젝트 구축: 매 세션마다 현황 분석과 세션 목표 제시
+1. **`/project-launch:plan`** — 계획서 작성: 구조화된 인터뷰를 통해 프로젝트 계획서 생성
+2. **`/project-launch:refine`** — 계획서 고도화: 기술 심층 리뷰와 스킬·MCP 탐색으로 계획서 완성
+3. **`/project-launch:setup`** — 프로젝트 세팅: 계획서 기반 CLAUDE.md 및 설정 파일 자동 생성
+4. **`/project-launch:build`** — 프로젝트 구축: 매 세션마다 현황 분석과 세션 목표 제시
 
 ```
 [세션 1 — 기획]                    [세션 2 — 세팅]          [세션 3+ — 구축]
@@ -85,7 +85,7 @@ claude.ai에서 구조화된 인터뷰로 기획하고, Claude Code에서 기술
 
 ### 2. 계획서 기반 4단계 가이드로 프로젝트 세팅 자동화
 
-`/plan` → `/refine` → `/setup` → `/build` 순서대로 실행하면, 프로젝트에 맞는 CLAUDE.md, rules, skills, agents, hooks가 자동 생성됩니다. CLAUDE.md 길이부터 보안 설정까지, 계획서가 결정합니다.
+`/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` 순서대로 실행하면, 프로젝트에 맞는 CLAUDE.md, rules, skills, agents, hooks가 자동 생성됩니다. CLAUDE.md 길이부터 보안 설정까지, 계획서가 결정합니다.
 
 ### 3. 프로젝트 규모에 맞는 Tier별 작업 모드 자동 판단
 
@@ -101,7 +101,7 @@ refine 단계에서 카탈로그에서 프로젝트에 필요한 스킬과 MCP�
 
 ### 5. 기술 결정과 트러블슈팅 축적으로 세션 간 맥락 연속
 
-`decisions.md`와 `lessons.md`가 자동으로 쌓입니다. 새 세션에서 `/build`를 실행하면 이전 기록을 전부 읽고 맥락을 복구합니다.
+`decisions.md`와 `lessons.md`가 자동으로 쌓입니다. 새 세션에서 `/project-launch:build`를 실행하면 이전 기록을 전부 읽고 맥락을 복구합니다.
 
 ### 6. 검증 스크립트로 스택 충돌·보안 허점 사전 차단
 
