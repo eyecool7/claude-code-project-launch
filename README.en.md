@@ -32,8 +32,8 @@ Follow the 4 commands in order, and your project setup and build are complete.
 
 **Plan (`project-plan.md`) data flow:**
 
-| Step | What it does to the plan |
-|------|--------------------------|
+| Step | What it does to the plan (`project-plan.md`) |
+|------|------------------------------------------------|
 | `plan` | Define Sections 1-5 + write Section 6 with agent/skill mapping |
 | `refine` | Update Sections 3-6 with interview + search results |
 | `setup` | Generate config files from plan + append Section 7 (setup results) |
