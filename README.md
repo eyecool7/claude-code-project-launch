@@ -41,15 +41,17 @@
 
 ## 핵심 기능
 
-### 1. 빈틈 없는 2-pass 설계로 고도화된 계획서 완성
+### 1. 2-pass 계획서 설계
 
-claude.ai에서 구조화된 인터뷰로 기획하고, Claude Code에서 기술 심층 리뷰까지 수행합니다. 계획서 자체의 완성도가 다릅니다.
+claude.ai에서 인터뷰로 기획 → Claude Code에서 기술 심층 리뷰. 두 단계를 거쳐 빈틈 없는 계획서를 완성합니다. project-plan-prompt 및 project-refine-prompt를 제공합니다.
 
-### 2. 계획서 기반 4단계 가이드로 프로젝트 세팅 자동화
+### 2. 4단계 세팅 자동화
 
-`/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` 순서대로 실행하면, 프로젝트에 맞는 CLAUDE.md, rules, skills, agents, hooks가 자동 생성됩니다. CLAUDE.md 길이부터 보안 설정까지, 계획서가 결정합니다.
+/plan → /refine → /setup → /build 커맨드를 순서대로 실행하여 계획/세팅/구축 과정을 손쉽게 완성할 수 있습니다.
 
-### 3. 프로젝트 규모에 맞는 Tier별 작업 모드 자동 판단
+### 3. Tier별 작업 모드
+
+프로젝트 규모에 따라 작업 방식을 자동 판단하여 필요한 에이전트 구조와 스킬을 갖춥니다.
 
 | Tier | 모드 | 적합한 경우 |
 |------|------|-------------|
@@ -57,17 +59,17 @@ claude.ai에서 구조화된 인터뷰로 기획하고, Claude Code에서 기술
 | 2 | 서브에이전트 | 독립 작업 블록이 있고 컨텍스트 절약이 필요한 경우 |
 | 3 | 에이전트 팀 | 대규모 병렬 세션, 에이전트 간 소통이 필요한 경우 |
 
-### 4. 커뮤니티 스킬·MCP 카탈로그에서 자동 탐색
+### 4. 스킬·MCP 자동 탐색
 
-refine 단계에서 카탈로그에서 프로젝트에 필요한 스킬과 MCP를 검색하고, 사용자 확인 후 설치합니다.
+refine 단계에서 커뮤니티 카탈로그를 검색하고, 사용자 확인 후 설치합니다.
 
-### 5. 기술 결정과 트러블슈팅 축적으로 세션 간 맥락 연속
+### 5. 세션 간 맥락 연속
 
-`decisions.md`와 `lessons.md`가 자동으로 쌓입니다. 새 세션에서 `/project-launch:build`를 실행하면 이전 기록을 전부 읽고 맥락을 복구합니다.
+`decisions.md`와 `lessons.md`가 자동으로 축적됩니다. `/project-launch:build` 실행 시 이전 기록을 전부 읽고 맥락을 복구합니다.
 
-### 6. 검증 스크립트로 스택 충돌·보안 허점 사전 차단
+### 6. 실수 사전 차단
 
-스택·의존성 충돌 자동 감지부터 빠진 설정까지 잡아냅니다. Remotion + Next.js 같은 비표준 조합도 사전에 경고합니다.
+스택·의존성 충돌, 빠진 설정, 보안 허점을 검증 스크립트가 잡아냅니다. 비표준 조합도 사전에 경고합니다.
 
 ---
 
@@ -106,72 +108,39 @@ claude plugin list
 
 ---
 
-## 사용법
-
-| 명령어 | 설명 |
-|--------|------|
-| `/project-launch:plan` | 계획서 작성 프롬프트 생성 |
-| `/project-launch:refine` | 계획서 고도화 프롬프트 생성 |
-| `/project-launch:setup` | 계획서 기반 프로젝트 세팅 |
-| `/project-launch:build` | 구축 킥오프 — 계획서 기반 현황 분석 + 세션 계획 |
+## 단계별 사용 가이드
 
 ### Step 1. 계획서 작성
 
-`/project-launch:plan` → `project-plan-prompt.md` 생성
-프롬프트를 **claude.ai**에 붙이고 인터뷰를 통해 `project-plan.md` 완성 → 프로젝트 루트에 저장
-
-> **실행 시 안내:**
-> 1. `project-plan-prompt.md`를 열어서 `[프로젝트 이름]`과 `프로젝트 개요`를 채우세요.
-> 2. 프롬프트 전체 내용을 **claude.ai** 채팅창에 붙여넣고 대화하며 계획서를 완성하세요.
-> 3. 완성된 계획서를 `project-plan.md`로 저장하고 프로젝트 루트에 넣으세요.
-> 4. `/project-launch:refine`을 실행하여 다음 단계로 넘어갑니다.
+`/project-launch:plan` 명령어 실행 → `project-plan-prompt.md` 자동 생성 → 프롬프트를 claude.ai에 붙이고 인터뷰를 통해 `project-plan.md` 완성 → 프로젝트 루트에 `project-plan.md` 저장
 
 ### Step 2. 계획서 고도화
 
-`/project-launch:refine` → `project-refine-prompt.md` 생성
-프롬프트를 **Claude Code**에 붙이고 기술 리뷰 + 스킬/MCP 검색 → `project-plan.md` 고도화 → 저장
-
-> **실행 시 안내:**
-> 1. `project-refine-prompt.md`를 열어서 프롬프트 내용을 **Claude Code** 채팅창에 붙여넣습니다.
-> 2. Claude Code와 대화하며 `project-plan.md` 계획서를 고도화하세요.
-> 3. 수정된 계획서를 프로젝트 루트에 `project-plan.md`로 다시 저장합니다.
-> 4. `/project-launch:setup`을 실행하여 다음 단계로 넘어갑니다.
+`/project-launch:refine` 명령어 실행 → `project-refine-prompt.md` 자동 생성 → 프롬프트를 Claude Code에 붙이고 기술 리뷰 + 스킬/MCP 검색 → `project-plan.md` 고도화 → 프로젝트 루트에 저장 (엎어쓰기)
 
 ### Step 3. 프로젝트 세팅
 
-`/project-launch:setup` → CLAUDE.md + .claude/ + .mcp.json 자동 생성
-셋업 완료 시 `project-plan.md`에 **Section 7 (셋업 결과)**이 자동 추가돼요. `/clear` 후에도 셋업 맥락이 보존됩니다.
-
-> **실행 시 안내:**
-> 세팅이 완료되었습니다.
->
-> | 항목 | 결과 |
-> |------|------|
-> | CLAUDE.md | {줄 수}줄 |
-> | .claude/ 파일 | {파일 수}개 |
-> | 작업 방식 | Tier {1/2/3} — {모드명} |
-> | 커뮤니티 스킬 | {수}개 설치 |
-> | MCP 서버 | {수}개 설정 |
->
-> `/clear`로 컨텍스트를 비우고 `/project-launch:build`를 실행하면 계획서 기반 개발이 시작됩니다.
+`/project-launch:setup` 명령어 실행 → CLAUDE.md + .claude/ + .mcp.json 자동 생성 → 셋업 완료 시 `project-plan.md`에 **셋업 결과**가 자동 추가 → `/clear` 후에도 셋업 맥락 보존
 
 ### Step 4. 구축 시작
 
-`/project-launch:build` → 계획서 기반 현황 분석 + 세션 목표 출력
-매 세션 시작 시 실행하면 돼요. 며칠 후 재진입해도 계획서 전체 + `decisions.md`, `lessons.md`, `git log`를 읽고 현재 진행 지점을 판별합니다.
+`/project-launch:build` 명령어 실행 → 계획서 기반 현황 분석 + 세션 목표 출력 → 며칠 후 재진입해도 계획서 전체 + `decisions.md`, `lessons.md`, `git log`를 읽고 현재 진행 지점 판별
 
-> **실행 시 안내:**
+> **출력 예시:**
 > 📋 **프로젝트 현황**
 >
 > | Phase | 상태 | 비고 |
 > |-------|:----:|------|
-> | Phase 1: 기반 | ✅/🔨/⬜ | ... |
+> | Phase 1: 프로젝트 기반 | ✅ | Next.js + Tailwind 초기화 완료 |
+> | Phase 2: 스크립트 파싱 | 🔨 | 파서 구현 중, 테스트 미완 |
+> | Phase 3: 콘텐츠 생성 | ⬜ | Phase 2 완료 후 시작 |
 >
-> **현재 Phase:** Phase N — {이름}
-> **이번 세션 목표:** (미달성 완료 기준 중 2–4개)
-> **주의사항:** decisions.md + lessons.md 관련 사항
+> **현재 Phase:** Phase 2 — 스크립트 파싱
+> **이번 세션 목표:**
+> 1. 페이지 구분자 자동 인식 로직 완성
+> 2. ParsedScript 타입 정의 및 단위 테스트 작성
 >
-> 📝 기록 규칙: decisions.md(기술 결정 즉시), lessons.md(실패 해결 즉시), 세션 종료 전 자체 점검
+> **주의사항:** lessons.md — Remotion import를 Next.js에서 직접 하면 번들러 충돌 발생 (분리 필요)
 
 ---
 

@@ -41,15 +41,17 @@ Plan creation     Technical review  Auto-setup          Build guide
 
 ## Key Features
 
-### 1. Airtight 2-Pass Design for a Polished Plan
+### 1. 2-Pass Plan Design
 
-Structured interview-based planning in claude.ai, then deep technical review in Claude Code. The plan itself is the differentiator.
+Interview-based planning in claude.ai → deep technical review in Claude Code. Two passes produce a thorough, gap-free plan. Provides project-plan-prompt and project-refine-prompt.
 
-### 2. Plan-Driven 4-Step Guide for Automated Project Setup
+### 2. 4-Step Automated Setup
 
-Follow `/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` and project-tailored CLAUDE.md, rules, skills, agents, and hooks are auto-generated. From CLAUDE.md length to security settings, the plan decides.
+Run /plan → /refine → /setup → /build commands in sequence to complete the planning, setup, and build process with ease.
 
-### 3. Auto-Detected Tier-Based Work Mode for Your Project Scale
+### 3. Tier-Based Work Mode
+
+Automatically determines the work mode based on project scale, equipping the right agent structure and skills.
 
 | Tier | Mode | Best For |
 |------|------|----------|
@@ -57,17 +59,17 @@ Follow `/project-launch:plan` → `/project-launch:refine` → `/project-launch:
 | 2 | Subagents | Independent work blocks, context savings needed |
 | 3 | Agent Teams | Large-scale parallel sessions, inter-agent communication needed |
 
-### 4. Auto-Discovery from Community Skill & MCP Catalogs
+### 4. Skill & MCP Auto-Discovery
 
-During the refine step, skills and MCP servers your project needs are searched from catalogs. Installed only after user confirmation.
+Searches community catalogs during the refine step and installs after user confirmation.
 
-### 5. Cross-Session Context Continuity via Decision & Troubleshooting Logs
+### 5. Cross-Session Context Continuity
 
-`decisions.md` and `lessons.md` accumulate automatically. Run `/project-launch:build` in a new session and it reads all prior records to restore context.
+`decisions.md` and `lessons.md` accumulate automatically. Running `/project-launch:build` reads all prior records and restores context.
 
-### 6. Validation Scripts to Catch Stack Conflicts & Security Gaps Early
+### 6. Early Mistake Prevention
 
-Auto-detects stack/dependency conflicts and missing configs. Non-standard combos like Remotion + Next.js get early warnings.
+Validation scripts catch stack/dependency conflicts, missing configs, and security gaps. Non-standard combos get early warnings.
 
 ---
 
@@ -106,72 +108,39 @@ claude plugin list
 
 ---
 
-## Usage
-
-| Command | Description |
-|---------|-------------|
-| `/project-launch:plan` | Generate plan creation prompt |
-| `/project-launch:refine` | Generate plan refinement prompt |
-| `/project-launch:setup` | Auto-generate project config from plan |
-| `/project-launch:build` | Build kickoff — plan-based status analysis + session plan |
+## Step-by-Step Guide
 
 ### Step 1. Create Project Plan
 
-`/project-launch:plan` → generates `project-plan-prompt.md`
-Paste the prompt into **claude.ai**, complete the plan through interview → save as `project-plan.md` in project root
-
-> **On run:**
-> 1. Open `project-plan-prompt.md` and fill in `[Project Name]` and `Project Overview`.
-> 2. Paste the full prompt into **claude.ai** and complete the plan through conversation.
-> 3. Save the finished plan as `project-plan.md` in the project root.
-> 4. Run `/project-launch:refine` to proceed to the next step.
+Run `/project-launch:plan` → `project-plan-prompt.md` auto-generated → Paste prompt into claude.ai and complete `project-plan.md` through interview → Save `project-plan.md` in project root
 
 ### Step 2. Refine Project Plan
 
-`/project-launch:refine` → generates `project-refine-prompt.md`
-Paste the prompt into **Claude Code**, run technical review + skill/MCP search → refine `project-plan.md` → save
-
-> **On run:**
-> 1. Open `project-refine-prompt.md` and paste the prompt into **Claude Code**.
-> 2. Refine `project-plan.md` through conversation with Claude Code.
-> 3. Save the refined plan back to `project-plan.md` in the project root.
-> 4. Run `/project-launch:setup` to proceed to the next step.
+Run `/project-launch:refine` → `project-refine-prompt.md` auto-generated → Paste prompt into Claude Code for technical review + skill/MCP search → Refine `project-plan.md` → Save in project root (overwrite)
 
 ### Step 3. Project Setup
 
-`/project-launch:setup` → auto-generates CLAUDE.md + .claude/ + .mcp.json
-On completion, **Section 7 (Setup Results)** is auto-appended to `project-plan.md`. Context preserved after `/clear`.
-
-> **On run:**
-> Setup complete.
->
-> | Item | Result |
-> |------|--------|
-> | CLAUDE.md | {lines} lines |
-> | .claude/ files | {count} files |
-> | Work mode | Tier {1/2/3} — {mode} |
-> | Community skills | {count} installed |
-> | MCP servers | {count} configured |
->
-> Run `/clear` then `/project-launch:build` to start plan-based development.
+Run `/project-launch:setup` → CLAUDE.md + .claude/ + .mcp.json auto-generated → **Setup results** auto-appended to `project-plan.md` → Setup context preserved even after `/clear`
 
 ### Step 4. Start Building
 
-`/project-launch:build` → plan-based status analysis + session goals output
-Run at the start of every session. For re-entry (returning after days), it reads the full plan + `decisions.md`, `lessons.md`, and `git log` to determine where to continue.
+Run `/project-launch:build` → Plan-based status analysis + session goals output → Even after days away, reads full plan + `decisions.md`, `lessons.md`, `git log` to determine where to continue
 
-> **On run:**
+> **Output example:**
 > 📋 **Project Status**
 >
 > | Phase | Status | Notes |
 > |-------|:------:|-------|
-> | Phase 1: Foundation | ✅/🔨/⬜ | ... |
+> | Phase 1: Foundation | ✅ | Next.js + Tailwind initialized |
+> | Phase 2: Script Parser | 🔨 | Parser in progress, tests incomplete |
+> | Phase 3: Content Generation | ⬜ | Starts after Phase 2 |
 >
-> **Current Phase:** Phase N — {name}
-> **Session goals:** (2–4 items from incomplete criteria)
-> **Notes:** Related decisions.md + lessons.md entries
+> **Current Phase:** Phase 2 — Script Parser
+> **Session goals:**
+> 1. Complete page delimiter auto-detection logic
+> 2. Define ParsedScript types and write unit tests
 >
-> 📝 Record rules: decisions.md (on tech decisions), lessons.md (on failure resolution), self-check before session end
+> **Notes:** lessons.md — Importing Remotion directly in Next.js causes bundler conflicts (isolation required)
 
 ---
 
