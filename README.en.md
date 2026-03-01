@@ -32,10 +32,42 @@ Follow 4 commands, and project-tailored config is auto-generated.
 
 ```
 /plan          →  /refine        →  /setup           →  /build
-Plan creation      Technical review   Auto-setup          Build guide
-(claude.ai)        (Claude Code)     CLAUDE.md +          Where you left off
-                                     20 config files      Today's tasks
+Plan creation     Technical review  Auto-setup          Build guide
+(claude.ai)       (Claude Code)     CLAUDE.md +         Where you left off
+                                    20 config files     Today's tasks
 ```
+
+---
+
+## Key Features
+
+### 1. Airtight 2-Pass Design for a Polished Plan
+
+Structured interview-based planning in claude.ai, then deep technical review in Claude Code. The plan itself is the differentiator.
+
+### 2. Plan-Driven 4-Step Guide for Automated Project Setup
+
+Follow `/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` and project-tailored CLAUDE.md, rules, skills, agents, and hooks are auto-generated. From CLAUDE.md length to security settings, the plan decides.
+
+### 3. Auto-Detected Tier-Based Work Mode for Your Project Scale
+
+| Tier | Mode | Best For |
+|------|------|----------|
+| 1 | Sequential | 3 or fewer features, simple projects |
+| 2 | Subagents | Independent work blocks, context savings needed |
+| 3 | Agent Teams | Large-scale parallel sessions, inter-agent communication needed |
+
+### 4. Auto-Discovery from Community Skill & MCP Catalogs
+
+During the refine step, skills and MCP servers your project needs are searched from catalogs. Installed only after user confirmation.
+
+### 5. Cross-Session Context Continuity via Decision & Troubleshooting Logs
+
+`decisions.md` and `lessons.md` accumulate automatically. Run `/project-launch:build` in a new session and it reads all prior records to restore context.
+
+### 6. Validation Scripts to Catch Stack Conflicts & Security Gaps Early
+
+Auto-detects stack/dependency conflicts and missing configs. Non-standard combos like Remotion + Next.js get early warnings.
 
 ---
 
@@ -71,38 +103,6 @@ claude plugin list
 
 - Claude Code v1.0.33 or higher (`claude --version`)
 - Update: `npm update -g @anthropic-ai/claude-code`
-
----
-
-## Key Features
-
-### 1. Airtight 2-Pass Design for a Polished Plan
-
-Structured interview-based planning in claude.ai, then deep technical review in Claude Code. The plan itself is the differentiator.
-
-### 2. Plan-Driven 4-Step Guide for Automated Project Setup
-
-Follow `/project-launch:plan` → `/project-launch:refine` → `/project-launch:setup` → `/project-launch:build` and project-tailored CLAUDE.md, rules, skills, agents, and hooks are auto-generated. From CLAUDE.md length to security settings, the plan decides.
-
-### 3. Auto-Detected Tier-Based Work Mode for Your Project Scale
-
-| Tier | Mode | Best For |
-|------|------|----------|
-| 1 | Sequential | 3 or fewer features, simple projects |
-| 2 | Subagents | Independent work blocks, context savings needed |
-| 3 | Agent Teams | Large-scale parallel sessions, inter-agent communication needed |
-
-### 4. Auto-Discovery from Community Skill & MCP Catalogs
-
-During the refine step, skills and MCP servers your project needs are searched from catalogs. Installed only after user confirmation.
-
-### 5. Cross-Session Context Continuity via Decision & Troubleshooting Logs
-
-`decisions.md` and `lessons.md` accumulate automatically. Run `/project-launch:build` in a new session and it reads all prior records to restore context.
-
-### 6. Validation Scripts to Catch Stack Conflicts & Security Gaps Early
-
-Auto-detects stack/dependency conflicts and missing configs. Non-standard combos like Remotion + Next.js get early warnings.
 
 ---
 
