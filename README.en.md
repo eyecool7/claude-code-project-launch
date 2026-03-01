@@ -159,24 +159,26 @@ Run `/project-launch:build` → Plan-based status analysis + session goals outpu
 >
 > | Phase | Status | Notes |
 > |-------|:------:|-------|
-> | Phase 1: Foundation | ✅ | Next.js + Tailwind initialized |
-> | Phase 2: Script Parser | 🔨 | Parser in progress, tests incomplete |
-> | Phase 3: Content Generation | ⬜ | Starts after Phase 2 |
+> | Phase 1: Foundation | ⬜ | Not started |
+> | Phase 2: Script Parser | 🔒 | Starts after Phase 1 |
+> | Phase 3: Content Generation | 🔒 | Starts after Phase 2 |
+> | Phase 4: Deploy Integration | 🔒 | Starts after Phase 3 |
 >
-> **Current Phase:** Phase 2 — Script Parser
+> **Current Phase:** Phase 1 — Foundation
 >
 > 🔧 **Session Build Order**
 >
 > | # | Task | Agent | Skill | Done When |
 > |---|------|:-----:|-------|-----------|
-> | 1 | Script parser (`lib/parser.ts`) | script-analyzer | script-parser | zod schema validation passes |
-> | 2 | ParsedScript types + unit tests | — | — | `pnpm test` passes |
+> | 1 | Next.js + Tailwind + shadcn/ui init | — | dependencies | `pnpm dev` runs successfully |
+> | 2 | Create folder structure (`src/app`, `src/lib`, `src/remotion`) | — | project-directory | Matches plan folder structure |
+> | 3 | Shared type definitions (`src/types/index.ts`) | — | — | `pnpm run typecheck` passes |
 >
-> **Ralph Loop:** Tasks 1,2 ✅ (mechanically verifiable)
+> **Ralph Loop:** Tasks 1,2,3 ✅ (mechanically verifiable)
 >
 > Proceed with this order?
 >
-> **Notes:** lessons.md — Importing Remotion directly in Next.js causes bundler conflicts (isolation required)
+> **Notes:** Section 7 — Remotion + Next.js bundler conflict (isolate in src/remotion/, exclude from Next.js build)
 
 ---
 

@@ -159,24 +159,26 @@ claude plugin list
 >
 > | Phase | 상태 | 비고 |
 > |-------|:----:|------|
-> | Phase 1: 프로젝트 기반 | ✅ | Next.js + Tailwind 초기화 완료 |
-> | Phase 2: 스크립트 파싱 | 🔨 | 파서 구현 중, 테스트 미완 |
-> | Phase 3: 콘텐츠 생성 | ⬜ | Phase 2 완료 후 시작 |
+> | Phase 1: 프로젝트 기반 | ⬜ | 미시작 |
+> | Phase 2: 스크립트 파싱 | 🔒 | Phase 1 완료 후 시작 |
+> | Phase 3: 콘텐츠 생성 | 🔒 | Phase 2 완료 후 시작 |
+> | Phase 4: 배포 연동 | 🔒 | Phase 3 완료 후 시작 |
 >
-> **현재 Phase:** Phase 2 — 스크립트 파싱
+> **현재 Phase:** Phase 1 — 프로젝트 기반
 >
 > 🔧 **이번 세션 구축 순서**
 >
 > | # | 작업 | 담당 에이전트 | 활용 스킬 | 완료 기준 |
 > |---|------|:----------:|----------|----------|
-> | 1 | 스크립트 파서 (`lib/parser.ts`) | script-analyzer | script-parser | zod 스키마 검증 통과 |
-> | 2 | ParsedScript 타입 + 단위 테스트 | — | — | `pnpm test` 통과 |
+> | 1 | Next.js + Tailwind + shadcn/ui 초기화 | — | dependencies | `pnpm dev` 정상 실행 |
+> | 2 | 폴더 구조 생성 (`src/app`, `src/lib`, `src/remotion`) | — | project-directory | 계획서 폴더 구조와 일치 |
+> | 3 | 공통 타입 정의 (`src/types/index.ts`) | — | — | `pnpm run typecheck` 통과 |
 >
-> **Ralph Loop:** 작업 1,2 ✅ (기계적 검증 가능)
+> **Ralph Loop:** 작업 1,2,3 ✅ (기계적 검증 가능)
 >
 > 이 순서로 진행할까요?
 >
-> **주의사항:** lessons.md — Remotion import를 Next.js에서 직접 하면 번들러 충돌 발생 (분리 필요)
+> **주의사항:** Section 7 — Remotion + Next.js 번들러 충돌 (src/remotion/에 격리, Next.js 빌드에서 제외)
 
 ---
 
