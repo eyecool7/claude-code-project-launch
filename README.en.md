@@ -206,6 +206,13 @@ Run `/project-launch:build` → Plan-based status analysis + build plan output �
 
 ## Output
 
+### CLAUDE.md Design Philosophy
+
+> *"Don't write what Claude already knows. Only keep rules unique to your project."*
+> — Inspired by [Andrej Karpathy's Claude Code principles](https://github.com/forrestchang/andrej-karpathy-skills)
+
+The generated CLAUDE.md follows this principle. Generic best practices that Claude follows by default (PR separation, retry on error, etc.) are excluded. Only **rules unique to this project** — stack conflict warnings, verification commands, key paths, record triggers — are kept within ~80 lines.
+
 ### Always Generated (20 files)
 
 | Category | Files | Role |
@@ -286,6 +293,18 @@ claude-code-project-launch/
 ├── README.en.md
 └── LICENSE
 ```
+
+---
+
+## Acknowledgments
+
+| Reference | Description |
+|-----------|-------------|
+| [Andrej Karpathy's Claude Code Skills](https://github.com/forrestchang/andrej-karpathy-skills) | CLAUDE.md design philosophy — conciseness, project-specific rules only |
+| [Awesome Claude Skills](https://github.com/travisvn/awesome-claude-skills) (⭐ 7.9k) | Original skill catalog source |
+| [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) (⭐ 25.6k) | Comprehensive Claude Code resource collection |
+| [vive-md](https://github.com/johunsang/vive-md) | Korean guide integrating the above sources. Used for skill/MCP discovery |
+| [@trq212 (Thariq)](https://x.com/trq212) | Original spec-based development workflow concept |
 
 ---
 

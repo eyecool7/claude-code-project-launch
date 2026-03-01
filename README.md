@@ -206,6 +206,13 @@ claude plugin list
 
 ## 산출물
 
+### CLAUDE.md 설계 철학
+
+> *"Claude가 이미 아는 건 쓰지 마라. 프로젝트만의 규칙만 남겨라."*
+> — [Andrej Karpathy의 Claude Code 원칙](https://github.com/forrestchang/andrej-karpathy-skills) 참고
+
+생성되는 CLAUDE.md는 이 원칙을 따릅니다. Claude가 기본적으로 따르는 범용 모범 사례(PR 분리, 에러 후 재시도 등)는 제외하고, **이 프로젝트에서만 유효한 규칙** — 스택 충돌 경고, 검증 명령어, 핵심 경로, 기록 트리거 — 만 80줄 이내로 담습니다.
+
 ### 항상 생성 (20개 파일)
 
 | 카테고리 | 파일 | 역할 |
@@ -286,6 +293,18 @@ claude-code-project-launch/
 ├── README.en.md
 └── LICENSE
 ```
+
+---
+
+## 참고
+
+| 참고 자료 | 설명 |
+|-----------|------|
+| [Andrej Karpathy's Claude Code Skills](https://github.com/forrestchang/andrej-karpathy-skills) | CLAUDE.md 설계 철학 — 간결함, 프로젝트 특화 규칙만 유지 |
+| [Awesome Claude Skills](https://github.com/travisvn/awesome-claude-skills) (⭐ 7.9k) | 스킬 카탈로그 원본 소스 |
+| [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) (⭐ 25.6k) | Claude Code 리소스 집대성 |
+| [vive-md](https://github.com/johunsang/vive-md) | 위 소스들의 한국어 가이드 통합본. 스킬/MCP 검색에 사용 |
+| [@trq212 (Thariq)](https://x.com/trq212) | spec 기반 개발 워크플로우 원안 |
 
 ---
 
