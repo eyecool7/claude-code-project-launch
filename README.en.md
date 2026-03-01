@@ -8,6 +8,8 @@ From plan writing to auto-setup and step-by-step build guidance — a Launchpad 
 
 ## Who Is This For?
 
+You know you need a plan but don't know what to write, setup feels overwhelming, and you lose context every session. This tool is for you.
+
 - You know a good project plan matters, but don't know what to write
 - You want to start a Claude Code project but the initial setup feels overwhelming
   - You're debating whether CLAUDE.md should be 58 lines or 500
